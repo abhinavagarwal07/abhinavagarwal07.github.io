@@ -18,7 +18,9 @@ pin: false
 
 ## How I Found This
 
-While reviewing the io_uring integration code in libfuse 3.18.0, I noticed a two-line error handling bug in `fuse_uring_start()`. The io_uring transport was new — shipped just three months earlier — and the error path had a subtle ordering issue:
+I used an interactive methodology combining manual code review with LLM-assisted analysis — a structured actor-critic approach where I guided the model through error-path auditing, identifying resource allocation patterns, tracing cleanup paths, and checking for cross-function invariant violations. This proved effective at surfacing subtle ordering bugs in error handlers that traditional static analysis tools miss.
+
+While reviewing the io_uring integration code in libfuse 3.18.0 using this approach, I found a two-line error handling bug in `fuse_uring_start()`. The io_uring transport was new — shipped just three months earlier — and the error path had a subtle ordering issue:
 
 ```c
 err:
