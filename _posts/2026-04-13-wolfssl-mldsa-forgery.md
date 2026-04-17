@@ -89,19 +89,13 @@ Heap reclamation is allocator-dependent. macOS libmalloc did not return the same
 
 ## Why It Matters
 
-### FIPS 204 non-conformance
-
 > "implementations of ML-DSA **shall** ensure that any potentially sensitive intermediate data is destroyed as soon as it is no longer needed."
 >
 > -- FIPS 204, Section 3.6.3
 
-"shall" is normative under NIST conventions. The unzeroed heap block containing s1, s2, and t0 directly violates this requirement. wolfSSL's active FIPS 140-3 certificate [#4718](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4718) (wolfCrypt v5.2.1) does not include ML-DSA in its validated boundary, but wolfSSL has a [pending FIPS 140-3 submission](https://www.wolfssl.com/coming-soon-wolfssl-takes-pqc-toward-fips-certification/) with ML-DSA in scope. The §3.6.3 violation is relevant to that submission.
+"shall" is normative under NIST conventions. The unzeroed heap block containing s1, s2, and t0 directly violates this requirement. wolfSSL's active FIPS 140-3 certificate [#4718](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4718) (wolfCrypt v5.2.1) does not include ML-DSA in its validated boundary, but wolfSSL has a [pending FIPS 140-3 submission](https://www.wolfssl.com/coming-soon-wolfssl-takes-pqc-toward-fips-certification/) with ML-DSA in scope; the §3.6.3 violation is relevant to that submission.
 
-### Vendor response
-
-wolfSSL confirmed, patched, and credited the finding within two days of the initial report. It classified the finding as a bug rather than a vulnerability, noting that exploitation requires "some other vulnerability to actually trigger the extraction of the sensitive data from the heap buffer." After evaluating the heap-reuse PoC, wolfSSL acknowledged it is "correct in using the data obtained from the heap buffer" but maintained the classification. No CVE has been assigned.
-
-A [follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}) shows the same bug is exploitable from a different process on the same host via `/proc/$pid/mem`, and from an off-process attacker via crash-reporter core ingest -- without requiring any second memory-disclosure bug in wolfSSL itself.
+wolfSSL confirmed and patched the finding but declined to assign a CVE, classifying it as a bug requiring a second vulnerability to exploit. The [follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}) addresses that objection.
 
 ---
 
