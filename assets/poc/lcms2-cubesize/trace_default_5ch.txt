@@ -1,0 +1,31 @@
+### default_5ch ###
+Cmd: ./poc_v2 --small
+[DEFAULT/5ch -> crash in cmsCreateTransform] profile=4819 bytes, flags=0x0
+[DEFAULT/5ch -> crash in cmsCreateTransform] calling cmsCreateTransform...
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==5695==ERROR: AddressSanitizer: SEGV on unknown address 0x525000065942 (pc 0x7a5ae3bb1503 bp 0x7fffc9795f10 sp 0x7fffc9795c70 T0)
+==5695==The signal is caused by a READ memory access.
+    #0 0x7a5ae3bb1503  (/lib/x86_64-linux-gnu/liblcms2.so.2+0xb503) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #1 0x7a5ae3bb1d9f  (/lib/x86_64-linux-gnu/liblcms2.so.2+0xbd9f) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #2 0x7a5ae3bc3e72  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x1de72) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #3 0x7a5ae3bc2b11  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x1cb11) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #4 0x7a5ae3be961f  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x4361f) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #5 0x7a5ae3bc41da in cmsStageSampleCLut16bit (/lib/x86_64-linux-gnu/liblcms2.so.2+0x1e1da) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #6 0x7a5ae3bea33c  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x4433c) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #7 0x7a5ae3beb807 in _cmsOptimizePipeline (/lib/x86_64-linux-gnu/liblcms2.so.2+0x45807) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #8 0x7a5ae3bd35c8  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x2d5c8) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #9 0x7a5ae3bd4d17 in cmsCreateExtendedTransform (/lib/x86_64-linux-gnu/liblcms2.so.2+0x2ed17) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #10 0x7a5ae3bd526a  (/lib/x86_64-linux-gnu/liblcms2.so.2+0x2f26a) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #11 0x7a5ae3bd53af in cmsCreateTransformTHR (/lib/x86_64-linux-gnu/liblcms2.so.2+0x2f3af) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #12 0x7a5ae3bd541d in cmsCreateTransform (/lib/x86_64-linux-gnu/liblcms2.so.2+0x2f41d) (BuildId: ede029acc569d42be9459604393648c9dc9227bb)
+    #13 0x651984ab54e2 in run_transform /home/ubuntu/icc_crash_poc_v2.c:166
+    #14 0x651984ab5e33 in main /home/ubuntu/icc_crash_poc_v2.c:219
+    #15 0x7a5ae302a1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)
+    #16 0x7a5ae302a28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 8e9fd827446c24067541ac5390e6f527fb5947bb)
+    #17 0x651984ab4424 in _start (/home/ubuntu/poc_v2+0x2424) (BuildId: 204e7f31dc907781e7d3da2e82a36f0823c0f531)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/x86_64-linux-gnu/liblcms2.so.2+0xb503) (BuildId: ede029acc569d42be9459604393648c9dc9227bb) 
+==5695==ABORTING
+Exit: 1
