@@ -88,7 +88,7 @@ AddressSanitizer: SEGV
   #... pdftoppm
 ```
 
-`pdftocairo` crashes on the same PDF with the same stack. The PDF contains a 1×1-pixel image XObject whose `/ColorSpace` references `[/ICCBased 5 0 R]`, where object 5 is an `/N 5 /Alternate /DeviceCMYK /Filter /FlateDecode` stream containing the zlib-compressed malicious ICC profile. Poppler's `GfxICCBasedColorSpace::parse()` emits `Syntax Warning: ICCBased color space with too many (5 > 4) components` — but **does not abort**. It still calls `buildTransforms()` → `cmsCreateTransform()` and hits the bug.
+`pdftocairo` crashes on the same PDF with the same stack. The PDF contains a 1×1-pixel image XObject whose `/ColorSpace` references `[/ICCBased 5 0 R]`, where object 5 is an `/N 5 /Alternate /DeviceCMYK /Filter /FlateDecode` stream containing the zlib-compressed malicious ICC profile. Poppler's `GfxICCBasedColorSpace::parse()` emits `Syntax Error: ICCBased color space with too many (5 > 4) components` — but despite the "Error" label it **does not abort**. It still calls `buildTransforms()` → `cmsCreateTransform()` and hits the bug.
 
 Generator: [`gen_poc.py`]({{site.url}}/assets/poc/lcms2-cubesize/gen_poc.py) — rebuild with any ICC via `python3 gen_poc.py mal_5ch.icc out.pdf`.
 
