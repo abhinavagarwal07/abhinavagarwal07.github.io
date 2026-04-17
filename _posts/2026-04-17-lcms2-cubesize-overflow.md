@@ -250,9 +250,10 @@ Caveats: ASLR must be off, and glibc's default allocator is assumed. Axis 3 is t
 | 2026-02-19 | [`da6110b`](https://github.com/mm2/Little-CMS/commit/da6110b) widens `rv` to uint64 |
 | 2026-03-12 | [`e0641b1`](https://github.com/mm2/Little-CMS/commit/e0641b1) reorders guard before multiply |
 | 2026-04-07 | [`429ea28`](https://github.com/mm2/Little-CMS/commit/429ea28): *"silence the continuous spam reports of people using AI to catch what they think are 'vulnerabilities'"* |
-| 2026-04-13 | `GHSA-4xp6-rcgg-m9qq` filed (private advisory); MITRE CVE request filed in parallel with the evidence available at the time (original GHSA content, no consumer reachability yet) |
+| 2026-04-13 | `GHSA-4xp6-rcgg-m9qq` filed (private advisory) |
+| 2026-04-14 | MITRE CVE request filed via cveform.mitre.org with the evidence that existed at the time (original GHSA content, no consumer reachability yet) |
 | 2026-04-16 | Asked the maintainer on the GHSA whether he'd triage, told him I'd publish otherwise |
-| 2026-04-17 | GHSA closed without engagement; public disclosure. Evidence at disclosure time (reachability matrix, CWE-200 channel, authoritative `script(1)` transcript) is substantially stronger than what MITRE has on file from April 13 |
+| 2026-04-17 | GHSA closed without engagement; public disclosure. Evidence at disclosure time (reachability matrix, CWE-200 channel, authoritative `script(1)` transcript) is substantially stronger than what MITRE has on file from April 14 |
 
 No release. No CVE. No distro backport as of this writing.
 
