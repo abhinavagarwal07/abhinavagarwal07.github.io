@@ -136,6 +136,7 @@ Potential downstream impact wherever wolfSSL's native ML-DSA signing path is use
 | 2026-04-09 | Heap-reuse PoC sent to wolfSSL |
 | 2026-04-10 | wolfSSL evaluated PoC, acknowledged correctness, maintained classification |
 | 2026-04-13 | Public disclosure |
+| 2026-04-14 | [Posted to oss-security](https://www.openwall.com/lists/oss-security/2026/04/14/5) |
 | 2026-04-17 | [Follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}): core-dump extraction and cross-process `/proc/mem` extraction |
 
 ---
@@ -145,5 +146,6 @@ Potential downstream impact wherever wolfSSL's native ML-DSA signing path is use
 - [FIPS 204 (ML-DSA)](https://csrc.nist.gov/pubs/fips/204/final) -- Section 3.6.3
 - [wolfSSL PR #10100](https://github.com/wolfSSL/wolfssl/pull/10100) -- stack + seedMu fix
 - [wolfSSL PR #10113](https://github.com/wolfSSL/wolfssl/pull/10113) -- heap block + seed fix
+- [oss-security post (2026-04-14)](https://www.openwall.com/lists/oss-security/2026/04/14/5) -- public advisory thread
 - [CWE-226](https://cwe.mitre.org/data/definitions/226.html) -- Sensitive Information in Resource Not Removed Before Reuse
 - [CWE-244](https://cwe.mitre.org/data/definitions/244.html) -- Improper Clearing of Heap Memory Before Release
