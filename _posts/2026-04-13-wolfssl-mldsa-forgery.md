@@ -107,11 +107,7 @@ A [follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}) shows the
 
 ## Mitigations
 
-If you use wolfSSL with `--enable-mldsa` and cannot update to v5.9.1 immediately:
-
-- **Isolate signing into a separate process under a separate UID, with core dumps disabled and no shared crash-reporter pipeline.** Same-process isolation is necessary but not sufficient -- see the [follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}) for cross-process and off-process recovery.
-- **Use a zero-on-free allocator.** Custom `XMALLOC`/`XFREE` hooks that zero memory before returning it to the allocator prevent stale-data recovery.
-- **Enable `WC_DILITHIUM_CACHE_PRIV_VECTORS` (partial mitigation).** With caching on, s1/s2/t0 are held in the key struct across signing calls rather than recomputed into the scratch each time -- reducing but not eliminating the scratch-block residue surface. The full private key is still resident in the key struct itself and must be zeroized there; this flag is not a substitute for the v5.9.1 patch.
+Update to [v5.9.1](https://github.com/wolfSSL/wolfssl/releases/tag/v5.9.1-stable) or later. Process isolation, zero-on-free `XMALLOC`/`XFREE` hooks, and `WC_DILITHIUM_CACHE_PRIV_VECTORS` are partial workarounds only; none is a substitute for the patch.
 
 ---
 
