@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A 992-Byte PDF That Crashes Poppler and OpenJDK: lcms2 CubeSize() Integer Overflow"
+title: "A 992-Byte PDF That Crashes Poppler (and an lcms2 Bug That Also Hits OpenJDK and Friends)"
 date: 2026-04-17 00:00:00 +0000
 categories: [Security, Advisory]
 tags: [lcms2, little-cms, icc-profile, integer-overflow, cwe-190, cwe-125, poppler, openjdk]
@@ -100,7 +100,7 @@ Ubuntu 24.04 LTS, stock `liblcms2-2 2.14-2build1`:
 
 | Consumer | Trigger | Payload | Result |
 |---|---|---|---|
-| **tumblerd** (D-Bus auto-activated thumbnail service, used on GNOME + Xfce) | `dbus-send` Queue with the PDF URI — the same call a file manager issues on folder-open. tumblerd wasn't running beforehand; D-Bus auto-activated it and the service died. | [992-byte PDF](https://abhinavagarwal07.github.io/assets/poc/lcms2-cubesize/poc_iccbased_5ch.pdf) | **SEGV** (4/4) — daemon dies in `liblcms2.so.2.0.14`, kernel `segfault …` + apport record |
+| **tumblerd** (D-Bus auto-activated thumbnail service — default on Xfce, available on GNOME as a fallback) | `dbus-send` Queue with the PDF URI — the same call a file manager issues on folder-open. tumblerd wasn't running beforehand; D-Bus auto-activated it and the service died. | [992-byte PDF](https://abhinavagarwal07.github.io/assets/poc/lcms2-cubesize/poc_iccbased_5ch.pdf) | **SEGV** (4/4) — daemon dies in `liblcms2.so.2.0.14`, kernel `segfault …` + apport record |
 | **`evince-thumbnailer`** (GNOME's PDF thumbnailer, invoked by tumbler and the GnomeDesktop API) | `evince-thumbnailer -s 200 poc.pdf out.jpg` | 992-byte PDF | **SEGV** at `liblcms2.so.2.0.14+0xb503` (Eval4Inputs+643) |
 | **Poppler `pdftoppm` / `pdftocairo` / `pdfimages -list`** | PDF with `/ICCBased 5 0 R` image | 992-byte PDF | **SEGV** |
 | **Okular 4:23.08.5** (KDE PDF viewer, xvfb-run) | `okular --print-and-exit poc.pdf` | 992-byte PDF | **SEGV** — kernel `Okular::PixmapG: segfault ... in liblcms2.so.2.0.14+0xb503` (Eval4Inputs+643); core + gdb bt captured |
@@ -211,7 +211,7 @@ I don't have a write primitive (so no I:H, no 9.8). I did look at `PatchLUT` in 
 
 ## Information Disclosure (CWE-200)
 
-Coarse but real. On Ubuntu 24.04 LTS (`liblcms2-2 2.14-2build1`), with ASLR off (`setarch -R`) and glibc's default allocator, the first output byte of `cmsDoTransform` tracks a pre-run heap-seed byte for specific inputs — a seed-correlated heap-read channel. It isn't an arbitrary-heap-read: the output byte isn't a raw heap byte but a `LinearInterp` of two 16-bit heap reads run back through the sRGB output pipeline, so bytes come back with some blur. The reliable window on the 5CLR profile is axis 3's `[-365 KB, -1.5 KB]` offsets below the CLUT allocation. Evidence: [`infoleak_linux_v3.c`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/infoleak_linux_v3.c) + [16-seed sweep logs]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/).
+Coarse but real. On Ubuntu 24.04 LTS (`liblcms2-2 2.14-2build1`), with ASLR off (`setarch -R`) and glibc's default allocator, the first output byte of `cmsDoTransform` tracks a pre-run heap-seed byte for specific inputs — a seed-correlated heap-read channel. It isn't an arbitrary-heap-read: the output byte isn't a raw heap byte but a `LinearInterp` of two 16-bit heap reads run back through the sRGB output pipeline, so bytes come back with some blur. The reliable window on the 5CLR profile is axis 3's `[-365 KB, -1.5 KB]` offsets below the CLUT allocation. Writeup: [`infoleak_linux_results.md`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/infoleak_linux_results.md). Sample log files: [`sweep_seed_00.log`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/sweep_seed_00.log), [`sweep_seed_AA.log`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/sweep_seed_AA.log), [`sweep_seed_CC.log`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/sweep_seed_CC.log), [`sweep_seed_FF.log`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/sweep_seed_FF.log).
 
 Two small quirks in `cmsintrp.c` make this work:
 
@@ -220,7 +220,7 @@ Two small quirks in `cmsintrp.c` make this work:
 
 For the 5CLR overflow profile with `opta = [3, 765, 187425, 30175425, 211227975]`, axis 3 (`opta[1] = 765`) gives offsets in `[-365 KB, -1.5 KB]`, which a 260 MB malloc spray covers comfortably.
 
-**Sample evidence** (from [`sweep_seed_*.log`]({{site.url}}/assets/poc/lcms2-cubesize/infoleak/)):
+**Sample evidence** (from the per-seed `sweep_seed_XX.log` files linked above):
 
 ```
 seed=0xAA  axis=3 in=0xd9  out=aa3b53    ← byte[0] = seed
