@@ -23,9 +23,7 @@ Off-process recovery primitives (core-dump ingest, cross-process `/proc/$pid/mem
 
 ## How It Works
 
-The attacker is code running in the same process as the ML-DSA signing operation -- a plugin, callback handler, co-loaded library, scripting engine, or any component that shares the process address space. The attacker can call `malloc` and read the returned buffer. This is the standard threat model the existence of `ForceZero`, `OPENSSL_cleanse`, `explicit_bzero`, and `SecureZeroMemory` is premised on.
-
-The attacker does **not** need a memory-corruption vulnerability, a core dump, `/proc/pid/mem` access, or any privilege beyond normal same-process execution.
+The attacker is code running in the same process as the ML-DSA signing operation -- a plugin, callback handler, co-loaded library, scripting engine, or any component that shares the process address space. The attacker can call `malloc` and read the returned buffer. No memory-corruption vulnerability, core dump, `/proc/pid/mem` access, or privilege beyond normal same-process execution is required.
 
 ### The missed `ForceZero`
 
@@ -66,7 +64,7 @@ The forgery uses hint reconstruction; s2 and t0 are not needed. For ML-DSA-44, `
 
 ## PoC
 
-The PoC ([poc_heap_forgery_v2.c](https://github.com/abhinavagarwal07/abhinavagarwal07.github.io/blob/main/assets/poc/wolfssl-mldsa/poc_heap_forgery_v2.c)) links `wolfcrypt/src/dilithium.c` directly for access to static NTT/expand functions. A companion verifier ([verify_forged.c](https://github.com/abhinavagarwal07/abhinavagarwal07.github.io/blob/main/assets/poc/wolfssl-mldsa/verify_forged.c)) links against the compiled `libwolfssl` binary -- not an inlined copy -- and independently confirms `wc_dilithium_verify_msg()` accepts the forged signature:
+The PoC ([poc_heap_forgery_v2.c](https://github.com/abhinavagarwal07/abhinavagarwal07.github.io/blob/main/assets/poc/wolfssl-mldsa/poc_heap_forgery_v2.c)) includes `wolfcrypt/src/dilithium.c` directly for access to static NTT/expand functions. A companion verifier ([verify_forged.c](https://github.com/abhinavagarwal07/abhinavagarwal07.github.io/blob/main/assets/poc/wolfssl-mldsa/verify_forged.c)) links against the compiled `libwolfssl` binary -- not an inlined copy -- and independently confirms `wc_dilithium_verify_msg()` accepts the forged signature:
 
 ```
 $ ./poc_heap_forgery_v2
@@ -85,9 +83,7 @@ VERIFIED - linked libwolfssl accepted the forged signature
 | Amazon Linux 2023 | x86_64 | glibc 2.34 | 5/5 |
 | Ubuntu 20.04 | x86_64 | glibc 2.31 | 5/5 |
 
-Heap reclamation is allocator-dependent. macOS libmalloc did not return the same chunk on sequential free -> malloc (0/100); the freed block still contains s1 but recovery needs a different primitive (e.g. `/proc`, core dump). musl and jemalloc were not tested.
-
-Build instructions are in the PoC file headers.
+Heap reclamation is allocator-dependent. macOS libmalloc did not return the same chunk on sequential free -> malloc (0/100); the freed block still contains s1 but recovery needs a different primitive (core dump or direct process-memory readback). musl and jemalloc were not tested.
 
 ---
 
@@ -119,25 +115,15 @@ If you use wolfSSL with `--enable-mldsa` and cannot update to v5.9.1 immediately
 
 ---
 
-## Downstream
-
-Potential downstream impact wherever wolfSSL's native ML-DSA signing path is used. Publicly documented examples include [wolfBoot](https://www.wolfssl.com/products/wolfBoot/) (firmware signing) and [wolfCLU](https://github.com/wolfSSL/wolfCLU) (command-line signing utility).
-
----
-
 ## Timeline
 
 | Date | Event |
 |------|-------|
-| 2026-03-28 | Report sent to wolfSSL with forgery PoC |
-| 2026-03-30 | wolfSSL confirmed. PR [#10100](https://github.com/wolfSSL/wolfssl/pull/10100). Heap block addendum + patch sent. |
-| 2026-03-31 | PR [#10113](https://github.com/wolfSSL/wolfssl/pull/10113). Declined CVE. |
-| 2026-04-02 | wolfSSL reaffirmed: "bugs, not vulnerabilities." Closed. |
-| 2026-04-09 | Heap-reuse PoC sent to wolfSSL |
-| 2026-04-10 | wolfSSL evaluated PoC, acknowledged correctness, maintained classification |
-| 2026-04-13 | Public disclosure |
-| 2026-04-14 | [Posted to oss-security](https://www.openwall.com/lists/oss-security/2026/04/14/5) |
-| 2026-04-17 | [Follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}): core-dump extraction and cross-process `/proc/mem` extraction |
+| 2026-03-28 | Reported to wolfSSL with forgery PoC |
+| 2026-03-30 | Confirmed and patched: PRs [#10100](https://github.com/wolfSSL/wolfssl/pull/10100) and [#10113](https://github.com/wolfSSL/wolfssl/pull/10113) |
+| 2026-04-02 | CVE declined; ticket closed |
+| 2026-04-13 | Public disclosure; [posted to oss-security](https://www.openwall.com/lists/oss-security/2026/04/14/5) 2026-04-14 |
+| 2026-04-17 | [Follow-up post]({% post_url 2026-04-17-wolfssl-mldsa-offprocess %}): core-dump and cross-process `/proc/mem` recovery |
 
 ---
 
