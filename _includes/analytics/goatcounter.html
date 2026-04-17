@@ -1,0 +1,13 @@
+{% assign goatcounter = site.analytics.goatcounter %}
+{% if goatcounter.id %}
+  <script>
+    window.goatcounter = {
+      path: function (p) { return p + (location.search || ''); }
+    };
+  </script>
+  <script
+    data-goatcounter="https://{{ goatcounter.id }}.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
+{% endif %}
