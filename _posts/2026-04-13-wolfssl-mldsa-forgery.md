@@ -11,7 +11,7 @@ pin: true
 
 ## Summary
 
-wolfSSL's ML-DSA signing implementation frees a ~50KB heap block containing private signing material (s1, s2, t0 in NTT form) without clearing it, in violation of the FIPS 204 Section 3.6.3 mandatory destruction requirement. For a same-process attacker able to allocate and read a same-size heap block, this material is recoverable -- demonstrated on glibc tcache across three Linux distributions and macOS. Recovery of s1 is sufficient for full signing key compromise and arbitrary signature forgery, verified end-to-end against the compiled `libwolfssl` binary.
+wolfSSL's ML-DSA signing implementation frees a ~50 KB heap block containing private signing material (s1, s2, t0 in NTT form) without clearing it, in violation of the FIPS 204 Section 3.6.3 mandatory destruction requirement. For a same-process attacker able to allocate and read a same-size heap block, this material is recoverable -- demonstrated on glibc across three Linux distributions (Ubuntu 22.04, Ubuntu 20.04, Amazon Linux 2023). Recovery of s1 is sufficient for full signing key compromise and arbitrary signature forgery, verified end-to-end against the compiled `libwolfssl` binary. Recovery primitives beyond in-process heap reuse -- core-dump ingest and cross-process `/proc/$pid/mem` -- are covered in the *Follow-Up* section below.
 
 wolfSSL confirmed the finding, patched it ([#10100](https://github.com/wolfSSL/wolfssl/pull/10100), [#10113](https://github.com/wolfSSL/wolfssl/pull/10113)), and credited the reporter. After evaluating the heap-reuse PoC, wolfSSL acknowledged it is "correct in using the data obtained from the heap buffer" but declined to assign a CVE.
 
