@@ -4,7 +4,7 @@ title: "A 992-Byte PDF That Crashes Poppler (and an lcms2 Bug That Also Hits Ope
 date: 2026-04-17 00:00:00 +0000
 categories: [Security, Advisory]
 tags: [lcms2, little-cms, icc-profile, integer-overflow, cwe-190, cwe-125, poppler, openjdk]
-description: "lcms2's CubeSize() does a check-after-multiply on a uint32. A crafted ICC profile with ≥5 CLUT channels makes it return a wrapped value, the caller undersizes the CLUT buffer, and the interpolator reads past the end. A 992-byte PDF crashes Poppler; a one-line Java call crashes OpenJDK 21; lcms2's own transicc -l crashes. Fix is in master since February, unreleased, no CVE, GHSA closed."
+description: "lcms2's CubeSize() does a check-after-multiply on a uint32. A crafted ICC profile with ≥5 CLUT channels makes it return a wrapped value, the caller undersizes the CLUT buffer, and the interpolator reads past the end. A 992-byte PDF crashes Poppler; a one-line Java call crashes OpenJDK 21; lcms2's own transicc -l crashes. Fix is in master since February, unreleased. CVE-2026-41254 assigned 2026-04-17; GHSA closed without engagement."
 toc: true
 pin: true
 ---
@@ -20,7 +20,7 @@ On stock Ubuntu 24.04 LTS:
 - `transicc -l` (lcms2's own bundled utility) crashes on a 4,819-byte device-link profile.
 - Short programs in Python (`ctypes`, 14 lines) and Rust (`lcms2` crate 5.6, 5 lines) crash on `cmsCreateTransform`.
 
-Upstream fixed the bug in [`da6110b`](https://github.com/mm2/Little-CMS/commit/da6110b) (Feb 2026) and [`e0641b1`](https://github.com/mm2/Little-CMS/commit/e0641b1) (Mar 2026). No release. No CVE. The GHSA I filed (`GHSA-4xp6-rcgg-m9qq`, private — advisory is not publicly visible) was closed without engagement. This post is the public disclosure.
+Upstream fixed the bug in [`da6110b`](https://github.com/mm2/Little-CMS/commit/da6110b) (Feb 2026) and [`e0641b1`](https://github.com/mm2/Little-CMS/commit/e0641b1) (Mar 2026). No release. **CVE-2026-41254** assigned by MITRE on 2026-04-17 (pending NVD publication). The GHSA I filed (`GHSA-4xp6-rcgg-m9qq`, private — advisory is not publicly visible) was closed without engagement. This post is the public disclosure.
 
 > **Affected:** all released versions through **lcms2 2.18**. Directly validated on `liblcms2-2 2.14-2build1` (Ubuntu 24.04 LTS) and `2.18` (Homebrew). Debian bookworm ships `liblcms2-2 2.16-2`; Fedora ships `lcms2 2.16`; Alpine edge ships `lcms2 2.17-r0`. Any distro on `lcms2 <= 2.18` is vulnerable.
 
@@ -254,8 +254,10 @@ Caveats: ASLR must be off, and glibc's default allocator is assumed. Axis 3 is t
 | 2026-04-14 | MITRE CVE request filed via `cveform.mitre.org` (ticket *CVE Request 2025002*). Submitted with the evidence available at the time (original GHSA content, no consumer reachability yet) |
 | 2026-04-16 | Asked the maintainer on the GHSA whether he'd triage, told him I'd publish otherwise |
 | 2026-04-17 | GHSA closed without engagement; public disclosure. Evidence at disclosure time (reachability matrix, CWE-200 channel, authoritative `script(1)` transcript) is substantially stronger than what MITRE has on file from April 14 |
+| 2026-04-17 | MITRE assigned **CVE-2026-41254** (same day as public disclosure); enrichment reply sent with the updated reachability evidence |
+| 2026-04-18 | Discovered the reporter has been blocked on GitHub by the maintainer: opening issues and commenting on existing issues in `mm2/Little-CMS` both fail, while the same actions succeed on unrelated repositories. Block date is unknown — could be as early as 2026-04-16 (GHSA closure) or any time since. Either way, the project's public issue tracker is no longer a usable coordination channel from this account |
 
-No release. No CVE. No distro backport as of this writing.
+No release. CVE-2026-41254 assigned, pending NVD publication. No distro backport as of this writing.
 
 ---
 
@@ -264,6 +266,8 @@ No release. No CVE. No distro backport as of this writing.
 The maintainer fixed the bug, credited both external reporters, but released nothing and closed the (private) GHSA without engagement. Context: commit [`5b08385`](https://github.com/mm2/Little-CMS/commit/5b08385) in April 2023 added a partial guard under the heading *"prevent to allocate a big chunk of memory on corrupted LUT"* and the body note *"Overflow here is harmless, but caller code may try to allocate a big chunk of memory, which will be immediatly freed because file size does not match."* That framing is accurate only when the wrapped value is *large* (the allocator balks at the size and the file truncates). For the narrow dim sequences that wrap to *small* values, the allocator accepts the size, parsing proceeds, and the downstream transform crashes through Poppler and OpenJDK on a default Linux box.
 
 The fix has been on `master` for two months. lcms2's last four release gaps were 3.9, 9.1, 14.1, and 11.1 months — call it 4–14. Distros don't backport unreleased fixes without a CVE. Public disclosure triggers CVE assignment and distro tracking; holding means the bug stays in shipping packages indefinitely.
+
+At some point between the GHSA closure and 2026-04-18 the maintainer blocked the reporter on GitHub, foreclosing any further coordination through the project's issue tracker.
 
 ---
 
