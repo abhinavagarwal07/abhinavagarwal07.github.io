@@ -4,7 +4,7 @@ title: "A 992-Byte PDF That Crashes Poppler (and an lcms2 Bug That Also Hits Ope
 date: 2026-04-17 00:00:00 +0000
 categories: [Security, Advisory]
 tags: [lcms2, little-cms, icc-profile, integer-overflow, cwe-190, cwe-125, poppler, openjdk]
-description: "lcms2's CubeSize() does a check-after-multiply on a uint32. A crafted ICC profile with ≥5 CLUT channels makes it return a wrapped value, the caller undersizes the CLUT buffer, and the interpolator reads past the end. A 992-byte PDF crashes Poppler; a one-line Java call crashes OpenJDK 21; lcms2's own transicc -l crashes. Fix is in master since February, unreleased. CVE-2026-41254 published; GHSA closed without engagement."
+description: "lcms2's CubeSize() does a check-after-multiply on a uint32. A crafted ICC profile with ≥5 CLUT channels makes it return a wrapped value, the caller undersizes the CLUT buffer, and the interpolator reads past the end. A 992-byte PDF crashes Poppler; a one-line Java call crashes OpenJDK 21; lcms2's own transicc -l crashes. CVE-2026-41254 published at 7.5 High (NVD); fix landed in lcms2.19rc1 pre-release."
 toc: true
 pin: true
 ---
@@ -20,7 +20,7 @@ On stock Ubuntu 24.04 LTS:
 - `transicc -l` (lcms2's own bundled utility) crashes on a 4,819-byte device-link profile.
 - Short programs in Python (`ctypes`, 14 lines) and Rust (`lcms2` crate 5.6, 5 lines) crash on `cmsCreateTransform`.
 
-Upstream fixed the bug in [`da6110b`](https://github.com/mm2/Little-CMS/commit/da6110b) (Feb 2026) and [`e0641b1`](https://github.com/mm2/Little-CMS/commit/e0641b1) (Mar 2026). No release. **[CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254)** assigned and published by MITRE/NVD on 2026-04-17 and 2026-04-18 respectively. The GHSA I filed (`GHSA-4xp6-rcgg-m9qq`, private — advisory is not publicly visible) was closed without engagement. This post is the public disclosure.
+Upstream fixed the bug in [`da6110b`](https://github.com/mm2/Little-CMS/commit/da6110b) (Feb 2026) and [`e0641b1`](https://github.com/mm2/Little-CMS/commit/e0641b1) (Mar 2026). Fix first tagged in [`lcms2.19rc1`](https://github.com/mm2/Little-CMS/releases/tag/lcms2.19rc1) on 2026-04-19 (GitHub pre-release, two days after public disclosure); no final 2.19 tag yet. **[CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254)** assigned by MITRE on 2026-04-17 and published on NVD on 2026-04-18; NVD rescored it to **7.5 (High)** on 2026-04-22. The GHSA I filed (`GHSA-4xp6-rcgg-m9qq`, private — advisory is not publicly visible) was closed without engagement. This post is the public disclosure.
 
 > **Affected:** all released versions through **lcms2 2.18**. Directly validated on `liblcms2-2 2.14-2build1` (Ubuntu 24.04 LTS) and `2.18` (Homebrew). Debian bookworm ships `liblcms2-2 2.16-2`; Fedora ships `lcms2 2.16`; Alpine edge ships `lcms2 2.17-r0`. Any distro on `lcms2 <= 2.18` is vulnerable.
 
@@ -257,8 +257,11 @@ Caveats: ASLR must be off, and glibc's default allocator is assumed. Axis 3 is t
 | 2026-04-17 | MITRE assigned **[CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254)** (same day as public disclosure); enrichment reply sent with the updated reachability evidence |
 | 2026-04-18 | CVE record published on NVD with all five references (blog, both upstream commits, GHSA, oss-security post) included |
 | 2026-04-18 | Discovered the reporter has been blocked on GitHub by the maintainer: opening issues and commenting on existing issues in `mm2/Little-CMS` both fail, while the same actions succeed on unrelated repositories. Block date is unknown — could be as early as 2026-04-16 (GHSA closure) or any time since. Either way, the project's public issue tracker is no longer a usable coordination channel from this account |
+| 2026-04-19 | Upstream tags [`lcms2.19rc1`](https://github.com/mm2/Little-CMS/releases/tag/lcms2.19rc1) (GitHub pre-release) — the first tag containing the fix commits, 2 days after public disclosure |
+| 2026-04-20 | Upstream tags [`lcms2.19rc2`](https://github.com/mm2/Little-CMS/releases/tag/lcms2.19rc2) (GitHub pre-release); no final 2.19 tag yet |
+| 2026-04-22 | NVD completed its own analysis and added a second CVSS block at **7.5 (High)**, vector `AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H`, alongside the existing CNA score of 4.0 (Medium). NVD also added **CWE-190** (Integer Overflow) as an NVD-sourced weakness; the CNA's CWE-696 remains on the record |
 
-No release. [CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254) published. No distro backport as of this writing.
+Fix landed in `lcms2.19rc1` / `lcms2.19rc2` (pre-release). No final 2.19 release yet. [CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254) published at 7.5 (High). No distro backport as of this writing.
 
 ---
 
@@ -266,7 +269,7 @@ No release. [CVE-2026-41254](https://nvd.nist.gov/vuln/detail/CVE-2026-41254) pu
 
 The maintainer fixed the bug, credited both external reporters, but released nothing and closed the (private) GHSA without engagement. Context: commit [`5b08385`](https://github.com/mm2/Little-CMS/commit/5b08385) in April 2023 added a partial guard under the heading *"prevent to allocate a big chunk of memory on corrupted LUT"* and the body note *"Overflow here is harmless, but caller code may try to allocate a big chunk of memory, which will be immediatly freed because file size does not match."* That framing is accurate only when the wrapped value is *large* (the allocator balks at the size and the file truncates). For the narrow dim sequences that wrap to *small* values, the allocator accepts the size, parsing proceeds, and the downstream transform crashes through Poppler and OpenJDK on a default Linux box.
 
-The fix has been on `master` for two months. lcms2's last four release gaps were 3.9, 9.1, 14.1, and 11.1 months — call it 4–14. Distros don't backport unreleased fixes without a CVE. Public disclosure triggers CVE assignment and distro tracking; holding means the bug stays in shipping packages indefinitely.
+The fix had been on `master` for two months. lcms2's last four release gaps were 3.9, 9.1, 14.1, and 11.1 months — call it 4–14. Distros don't backport unreleased fixes without a CVE. Public disclosure on 2026-04-17 triggered CVE assignment the same day, NVD publication the next day, and the first release candidate (`lcms2.19rc1`) two days later on 2026-04-19 — a timeline that suggests the rc tagging was prompted by the disclosure rather than by the bug-fix commit landing on master two months earlier.
 
 At some point between the GHSA closure and 2026-04-18 the maintainer blocked the reporter on GitHub, foreclosing any further coordination through the project's issue tracker.
 
