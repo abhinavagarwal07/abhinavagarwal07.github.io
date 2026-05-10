@@ -119,7 +119,7 @@ The leading-zero `init` flag provides additional MSB information for ~6% of keys
 
 ### What This Does NOT Give the Attacker
 
-**Full key recovery from timing alone is not feasible with any published algorithm.** The zero-nibble count is a combinatorial constraint — it tells you *how many* nibbles are zero, not *which*. This does not map to the Hidden Number Problem (HNP) framework used by lattice attacks ([Howgrave-Graham & Smart](https://link.springer.com/chapter/10.1007/3-540-44448-3_12), [Nguyen & Shparlinski](https://link.springer.com/chapter/10.1007/3-540-36413-7_20)), and generic algorithms like Pollard's rho achieve O(2^128) regardless.
+**Full key recovery from this timing signal alone has not been demonstrated.** The zero-nibble count is a combinatorial constraint — it tells you *how many* nibbles are zero, not *which*. This does not directly map to the Hidden Number Problem (HNP) framework used by lattice attacks ([Howgrave-Graham & Smart](https://link.springer.com/chapter/10.1007/3-540-44448-3_12), [Nguyen & Shparlinski](https://link.springer.com/chapter/10.1007/3-540-36413-7_20)).
 
 ### What It Does Give the Attacker
 
