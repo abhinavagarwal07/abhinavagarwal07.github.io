@@ -163,7 +163,7 @@ If the symbol is present, the non-constant-time optimized path is compiled in. I
 - Cloud providers offering SM2-based TLS/TLCP endpoints on ARM64 infrastructure
 - IoT deployments using SM2 on RISC-V with physical attacker exposure
 
-**Mitigation:** The fix is the same approach P-256 already uses: constant-time table lookup (`gather_w5`-style scatter/gather), unconditional point operations on every loop iteration, and branchless identity handling via conditional-move. A public GitHub issue will be filed.
+**Mitigation:** The fix is the same approach P-256 already uses: constant-time table lookup (`gather_w5`-style scatter/gather), unconditional point operations on every loop iteration, and branchless identity handling via conditional-move. Public GitHub issue: [openssl/openssl#31133](https://github.com/openssl/openssl/issues/31133).
 
 ---
 
