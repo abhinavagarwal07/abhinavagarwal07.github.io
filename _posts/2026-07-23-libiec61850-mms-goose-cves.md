@@ -39,7 +39,11 @@ nothing. See [Fixed in public, before the advisory](#fixed-in-public-before-the-
 | [CVE-2026-50103](https://nvd.nist.gov/vuln/detail/CVE-2026-50103) | GOOSE / R-GOOSE parser | NULL deref on malformed TLV (CWE-476/228) | DoS | 6.5 / 7.1 |
 
 Coordinated through CISA: **[ICSA-26-204-06](https://www.cisa.gov/news-events/ics-advisories/icsa-26-204-06)** /
-CERT/CC **VU#372281**. PoC code: **[github.com/abhinavagarwal07/libiec-security-poc](https://github.com/abhinavagarwal07/libiec-security-poc)**.
+CERT/CC **VU#372281**.
+
+**The full exploit is available** — working proof-of-concept code for all four issues, including the
+end-to-end MMS FileRead → RCE chain, is published at
+**[github.com/abhinavagarwal07/libiec-security-poc](https://github.com/abhinavagarwal07/libiec-security-poc)**.
 
 > **Affected:** libIEC61850 **v1.0.0 through v1.6.1**. Validated against commit `a1396111` (v1.6.1
 > tip). **All four fixed in v1.6.2** — see [Mitigation](#mitigation).
