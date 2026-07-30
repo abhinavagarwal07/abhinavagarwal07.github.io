@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Memory-Safety Flaws in open62541 PubSub and TransferSubscriptions"
+title: "Security Flaws in a Major OPC UA Library Used in Critical Infrastructure"
 date: 2026-07-30 00:00:00 +0000
 categories: [Security, Advisory]
 tags: [open62541, opc-ua, iec-62541, ics, ot, pubsub, cve-2026-63362, cve-2026-63035, cwe-191, cwe-416, dos]
