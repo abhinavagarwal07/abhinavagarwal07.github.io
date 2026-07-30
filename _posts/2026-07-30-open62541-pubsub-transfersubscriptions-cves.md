@@ -185,10 +185,6 @@ until v1.4.18 and v1.5.6.
 
 ## Why there's no PoC repo this time
 
-I usually publish proof-of-concept code. Last week I published a full RCE chain for
-[libIEC61850]({% post_url 2026-07-23-libiec61850-mms-goose-cves %}), which is substation software;
-[MZ Automation](https://github.com/mz-automation/libiec61850) did not ask me to hold it back.
-
 o6 asked me not to publish runnable proof-of-concept code for these two issues, to protect
 installations that may never receive updated firmware. So I didn't.
 
