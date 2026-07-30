@@ -206,7 +206,7 @@ installations that may never receive updated firmware. So I didn't.
 |------|-------|
 | 2026-05-07 | Reported three issues to `open62541-security@googlegroups.com`. |
 | 2026-05-11 | Both fixes written - [`a1257fee`](https://github.com/open62541/open62541/commit/a1257feec0c539f191cb2d40f72f116a901d3322) and [`bc30df3a`](https://github.com/open62541/open62541/commit/bc30df3adab5cc61383cb7e7f551bfd6f7ac160c), four days after the report. Held privately. |
-| 2026-05-13 | Coordination case opened with CISA. |
+| 2026-05-13 | CERT/CC coordination case opened. |
 | 2026-07-23 / 24 | Fix commits became public. |
 | 2026-07-27 | Maintenance releases [v1.3.19](https://github.com/open62541/open62541/releases/tag/v1.3.19), [v1.4.18](https://github.com/open62541/open62541/releases/tag/v1.4.18) and [v1.5.6](https://github.com/open62541/open62541/releases/tag/v1.5.6) published; o6 asked that PoC code not be released; I agreed. |
 | 2026-07-30 | CISA advisory published; this post. |
