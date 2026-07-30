@@ -33,11 +33,10 @@ that takes down the whole server process with no credentials and no session. All
 | Quota exhaustion | Subscriptions / decode | Monitored-item quota exhaustion + nested decode (CWE-460) | DoS | 7.5 / 6.9 |
 | Diagnostics disclosure | Diagnostics nodes | Cross-session diagnostics disclosure (CWE-862) | Information disclosure | 6.4 / 6.9 |
 
-**Working proof-of-concept code exists for the four strongest findings** — including the full
+**Working proof-of-concept code is available for the four strongest findings** — including the full
 token-capture → password-recovery → impersonation chain — each with a Milo 1.1.5 negative control that is
-the *same* PoC bytecode with only the Milo dependency changed. **The exploit code is withheld until
-2026-07-30**, to give operators a short window to upgrade ahead of public PoCs. It will then be published
-at `github.com/abhinavagarwal07/milo-security-poc`.
+the *same* PoC bytecode with only the Milo dependency changed:
+**[github.com/abhinavagarwal07/milo-security-poc](https://github.com/abhinavagarwal07/milo-security-poc)**.
 
 > **Affected:** Eclipse Milo server-side. Affected ranges vary by finding: **0.6.0–0.6.16 and/or
 > 1.0.0–1.1.4**. See the per-finding ranges below. **All fixed in 1.1.5.**
@@ -123,7 +122,7 @@ coordinating body elects to issue its own, that takes precedence.
 | 2026-07-21 | Requested CVE publication (again 2026-07-22); no response. |
 | 2026-07-26 | CVE publication requests filed with Eclipse; CERT/CC notified of upcoming private advisory. |
 | 2026-07-28 | This advisory. |
-| 2026-07-30 | Proof-of-concept exploit code to be published. |
+| 2026-07-28 | Proof-of-concept exploit code published. |
 
 ---
 
@@ -157,7 +156,7 @@ gets no signal.
 
 #### From oracle to plaintext password
 
-The PoC (to be published on 2026-07-30) runs the full chain against Milo 1.1.4 configured with a `Basic128Rsa15` username policy:
+The [PoC](https://github.com/abhinavagarwal07/milo-security-poc/tree/main/username-token-padding-oracle) runs the full chain against Milo 1.1.4 configured with a `Basic128Rsa15` username policy:
 
 1. **Discover and validate.** Connect, enumerate endpoints, confirm a `UserName` policy with
    `Basic128Rsa15`, and fetch the server certificate and its 2048-bit RSA public key. The certificate's
@@ -212,7 +211,7 @@ non-final chunk, and disconnects leaks those buffers permanently.
 
 #### The attack
 
-The PoC attacker (to be published on 2026-07-30) is a **pure-socket client with no Milo or OPC UA library
+The [PoC](https://github.com/abhinavagarwal07/milo-security-poc/tree/main/uasc-preauth-memory-leak) attacker is a **pure-socket client with no Milo or OPC UA library
 dependency** — it speaks just enough UASC to open a `SecurityPolicy.None` channel, emit chunks with the final-chunk flag never set, and hang up.
 Repeat. Each iteration strands buffers the server will never free. Two outcomes, depending on how the JVM
 is bounded:
@@ -301,8 +300,9 @@ If you ship or operate software that embeds Milo, check the version you pin and 
 
 ## Reproducing
 
-> **The exploit code is withheld until 2026-07-30.** The repository below goes live on that date; the
-> commands are shown now so operators can plan their testing. Upgrade first.
+> **These are working exploits.** Run them only in a disposable VM against servers you own. The
+> memory-leak PoC kills the JVM it is pointed at; the padding-oracle PoC recovers a real password.
+> Upgrade to Milo 1.1.5 first.
 {: .prompt-warning }
 
 Each PoC is a self-contained Maven project that builds against the **released** Milo artifacts from Maven
@@ -341,7 +341,7 @@ git clone https://github.com/abhinavagarwal07/milo-security-poc && cd milo-secur
 
 ## References
 
-- **PoC artifacts** (available from 2026-07-30): `github.com/abhinavagarwal07/milo-security-poc`
+- **PoC artifacts:** [github.com/abhinavagarwal07/milo-security-poc](https://github.com/abhinavagarwal07/milo-security-poc)
 - Eclipse Milo 1.1.5 release: <https://github.com/eclipse-milo/milo/releases/tag/v1.1.5>
 - Eclipse tracking issue: <https://gitlab.eclipse.org/security/vulnerability-reports/-/work_items/598>
 - CERT/CC: VU#813184
