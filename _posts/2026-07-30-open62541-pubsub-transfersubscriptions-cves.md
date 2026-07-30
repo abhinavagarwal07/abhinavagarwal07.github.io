@@ -26,10 +26,10 @@ tested. The first involves no session at all, though it does need a build with P
 configured. The second needs a session, and the version I tested handed those to anonymous clients
 by default.
 
-| ID | Component | Bug | Impact | Fix |
-|----|-----------|-----|--------|-----|
-| [CVE-2026-63362](https://nvd.nist.gov/vuln/detail/CVE-2026-63362) | PubSub signature verification | Unsigned integer underflow ([CWE-191](https://cwe.mitre.org/data/definitions/191.html)) | Out-of-bounds read → DoS | 1.3/1.4: [`a1257fee`](https://github.com/open62541/open62541/commit/a1257feec0c539f191cb2d40f72f116a901d3322) · 1.5: [`ba5bf592`](https://github.com/open62541/open62541/commit/ba5bf5928d61e2c8a92b008e2da847722785868f) |
-| [CVE-2026-63035](https://nvd.nist.gov/vuln/detail/CVE-2026-63035) | TransferSubscriptions | Use-after-free ([CWE-416](https://cwe.mitre.org/data/definitions/416.html)) | Potential DoS; integrity impact per the advisory (`I:H`) | 1.3: [`2da371bc`](https://github.com/open62541/open62541/commit/2da371bcdaadeb23051635a60e38f31039af9fd8) · 1.4/1.5: [`bc30df3a`](https://github.com/open62541/open62541/commit/bc30df3adab5cc61383cb7e7f551bfd6f7ac160c) |
+| CVE | Component | Bug | Impact | CVSS v3.1 · v4 | Fix |
+|-----|-----------|-----|--------|----------------|-----|
+| [CVE-2026-63362](https://nvd.nist.gov/vuln/detail/CVE-2026-63362) | PubSub signature verification | Unsigned integer underflow ([CWE-191](https://cwe.mitre.org/data/definitions/191.html)) | Out-of-bounds read → DoS | 5.9 `AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H` · 8.2 | 1.3/1.4: [`a1257fee`](https://github.com/open62541/open62541/commit/a1257feec0c539f191cb2d40f72f116a901d3322) · 1.5: [`ba5bf592`](https://github.com/open62541/open62541/commit/ba5bf5928d61e2c8a92b008e2da847722785868f) |
+| [CVE-2026-63035](https://nvd.nist.gov/vuln/detail/CVE-2026-63035) | TransferSubscriptions | Use-after-free ([CWE-416](https://cwe.mitre.org/data/definitions/416.html)) | Potential DoS; integrity impact per the advisory (`I:H`) | 8.1 `AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H` · 7.2 | 1.3: [`2da371bc`](https://github.com/open62541/open62541/commit/2da371bcdaadeb23051635a60e38f31039af9fd8) · 1.4/1.5: [`bc30df3a`](https://github.com/open62541/open62541/commit/bc30df3adab5cc61383cb7e7f551bfd6f7ac160c) |
 
 Coordinated with [CISA](https://www.cisa.gov/), which published the ICS advisory
 **[ICSA-26-211-08](https://www.cisa.gov/news-events/ics-advisories/icsa-26-211-08)** on 30 July 2026.
@@ -42,11 +42,6 @@ Coordinated with [CISA](https://www.cisa.gov/), which published the ICS advisory
 > **Fixed** (27 July 2026) in [v1.3.19](https://github.com/open62541/open62541/releases/tag/v1.3.19),
 > [v1.4.18](https://github.com/open62541/open62541/releases/tag/v1.4.18) and
 > [v1.5.6](https://github.com/open62541/open62541/releases/tag/v1.5.6) - see [Mitigation](#mitigation).
-
-| CVE | CVSS v3.1 | CVSS v4 |
-|-----|-----------|---------|
-| [CVE-2026-63362](https://nvd.nist.gov/vuln/detail/CVE-2026-63362) | 5.9 `AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H` | 8.2 |
-| [CVE-2026-63035](https://nvd.nist.gov/vuln/detail/CVE-2026-63035) | 8.1 `AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H` | 7.2 |
 
 > **Proof-of-concept code is withheld at o6 Automation's request.** [Why](#why-theres-no-poc-repo-this-time).
 
