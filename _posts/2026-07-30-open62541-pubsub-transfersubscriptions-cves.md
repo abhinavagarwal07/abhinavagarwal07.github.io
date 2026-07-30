@@ -233,20 +233,21 @@ off untrusted networks and behind segmentation regardless of version.
 
 ## Credit
 
-o6 Automation, the maintainers of open62541, confirmed my findings, coordinated them with device
-manufacturers and operators of critical installations through its support and
-vulnerability-management process, and credited me in the fix commits.
-
-The case was coordinated with CISA, which wrote the advisory and incorporated the technical
+**[CVE-2026-63362](https://nvd.nist.gov/vuln/detail/CVE-2026-63362) and
+[CVE-2026-63035](https://nvd.nist.gov/vuln/detail/CVE-2026-63035), the two issues described here,
+are my findings.** I reported them on 7 May 2026. o6 Automation, the maintainers of open62541,
+confirmed my findings, coordinated them with device manufacturers and operators of critical
+installations through its support and vulnerability-management process, and credited me in the fix
+commits. CISA credits me as a reporter in the advisory, which incorporated the technical
 corrections I proposed to the draft.
 
-The advisory covers four vulnerabilities: the two above, plus two integer overflows in the
-`UA_Variant` arrayDimensions computation - [CVE-2026-65423](https://nvd.nist.gov/vuln/detail/CVE-2026-65423)
+The advisory covers two further vulnerabilities, both integer overflows in the `UA_Variant`
+arrayDimensions computation: [CVE-2026-65423](https://nvd.nist.gov/vuln/detail/CVE-2026-65423)
 (out-of-bounds write) and [CVE-2026-63559](https://nvd.nist.gov/vuln/detail/CVE-2026-63559)
-(out-of-bounds read) - reported by **Asher Davila of Palo Alto Networks**.
+(out-of-bounds read). Those two were reported by **Asher Davila of Palo Alto Networks**.
 
-A third issue in my report had already been reported by **Lorenzo Cannella** and was handled
-separately as o6 advisory SA-2026-0002. Credit for that one is his.
+A third issue in my 7 May report had already been reported by **Lorenzo Cannella** and was handled
+separately as o6 advisory SA-2026-0002.
 
 ---
 
