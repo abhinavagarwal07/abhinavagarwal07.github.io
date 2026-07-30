@@ -244,7 +244,8 @@ corrections I proposed to the draft.
 The advisory covers two further vulnerabilities, both integer overflows in the `UA_Variant`
 arrayDimensions computation: [CVE-2026-65423](https://nvd.nist.gov/vuln/detail/CVE-2026-65423)
 (out-of-bounds write) and [CVE-2026-63559](https://nvd.nist.gov/vuln/detail/CVE-2026-63559)
-(out-of-bounds read). Those two were reported by **Asher Davila of Palo Alto Networks**.
+(out-of-bounds read). Those two were reported by **Asher Davila of Palo Alto Networks**; the
+upstream fix credits him and **Malav Vyas**.
 
 A third issue in my 7 May report had already been reported by **Lorenzo Cannella** and was handled
 separately as o6 advisory SA-2026-0002.
