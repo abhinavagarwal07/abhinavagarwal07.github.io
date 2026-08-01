@@ -74,10 +74,10 @@ outage rather than code execution.
 The interesting cases are elsewhere.
 
 **SteamOS** is the largest consumer fleet I found with iwd as the OS default rather than an option —
-`steamos-customizations-git` ships `/etc/NetworkManager/conf.d/wifi_backend.conf` containing
-`wifi.backend=iwd`. The version isn't 3.12: the newest `holo-main` package is iwd 3.9-1.2, and the
-older `holo-3.7` repository tops out at 3.0-1. All four defects are present in upstream 3.9, and
-Valve's PKGBUILD patches are BSS-cache only.
+`steamos-customizations-git` ships `/usr/lib/NetworkManager/conf.d/10-steamos-defaults.conf`
+containing `wifi.backend=iwd`. The version isn't 3.12: the current `holo-main` package is iwd
+3.9-1.2, and the older `holo-3.7` repository tops out at 3.0-1. All four defects are present in
+upstream 3.9, and Valve's PKGBUILD patches are BSS-cache only.
 
 Finding 1 on a Deck is a crash, not code execution — I pulled the 3.9-1.2 package and checked: the
 binary is PIE and imports `__stack_chk_fail`, so the stack protector aborts. (PIE alone wouldn't
