@@ -44,8 +44,12 @@ the findings but haven't requested identifiers. So the findings are numbered, no
 ## Why I'm publishing without a fix
 
 I reported to the maintainers on 19 May and sent patches on 21 May. They confirmed all four on
-28 May. That was 65 days ago. The patches still aren't applied, there's no release, and there's no
-advisory.
+28 May — 65 days ago. A maintainer has since reviewed the patches, verified them against the spec,
+and applied them locally: *"From my side these patches look good. I've applied/verified them
+against the spec."*
+
+So the fixes exist, they're correct, and a maintainer says so. They're just not upstream. `master`
+is still `d003d0e5` with no commits since 13 March, no release, and no advisory.
 
 On 21 July I said I'd publish by 27 July. This is a few days later than that.
 
@@ -586,8 +590,9 @@ Also in the repo:
 - **`01-rrm-stack-overflow/rop_analysis.md`** — per-architecture frame layouts, including the
   x86-64 dead end worked out in full.
 - **[`patches/`](https://github.com/abhinavagarwal07/iwd-security-poc/tree/main/patches)** — the
-  four-patch `git format-patch` series as sent upstream on 21 May, commit messages intact.
-  `git am patches/*.patch` against `d003d0e5`. Independent of each other, so a subset works.
+  four-patch `git format-patch` series as sent upstream on 21 May, commit messages intact, and
+  reviewed and spec-verified by a maintainer. `git am patches/*.patch` against `d003d0e5`.
+  Independent of each other, so a subset works.
 
 Run it in a disposable VM. Several harnesses are expected to abort partway through — that's the
 result, not a build failure.
@@ -623,7 +628,7 @@ individual `memcpy` looks wrong, so FORTIFY_SOURCE and a call-site review both m
 | 2026-05-28 | Maintainers confirmed all four findings. |
 | 2026-06-29 | Valve PSIRT notified — SteamOS ships iwd as the default backend. |
 | 2026-07-21 | Told the maintainers I would publish by 27 July. |
-| 2026-08-01 | This post and the PoC repo. Still no fix upstream. |
+| 2026-08-01 | Maintainer confirms the patches — reviewed, applied, spec-verified — with one `-Wsign-compare` fix. This post and the PoC repo. Still no fix upstream. |
 
 ---
 
