@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Seventeen Neighbours Is Enough: A Stack Overflow in iwd, and Three More Bugs With No Fix"
+title: "No Password, No Association, No Fix: Four Bugs in the Wi-Fi Daemon SteamOS Ships by Default"
 date: 2026-08-01 00:00:00 +0000
 categories: [Security, Advisory]
 tags: [iwd, wifi, 802-11, 802-11k, 802-11r, rrm, fast-bss-transition, linux, steamos, cwe-121, cwe-125, cwe-191, cwe-697, stack-overflow]
-description: "A 512-byte stack buffer in iwd's 802.11k handler takes 31 bytes per neighbouring AP and never checks. Seventeen APs overflows it, and a spoofed action frame on any WPA2 network without PMF triggers it. Plus three parser bugs. Reported in May, confirmed, patched by me, still unfixed."
+description: "A nearby attacker can knock a Linux machine off Wi-Fi with one spoofed frame — no password, no association. iwd writes 31 bytes per visible access point into a 512-byte stack buffer and never checks; seventeen APs in range overflows it. SteamOS ships iwd as its default backend, where the impact is a crash rather than code execution. Reported in May, confirmed, patches sent. Still unfixed."
 toc: true
 pin: true
 ---
