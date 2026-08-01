@@ -628,7 +628,7 @@ individual `memcpy` looks wrong, so FORTIFY_SOURCE and a call-site review both m
 | 2026-05-28 | Maintainers confirmed all four findings. |
 | 2026-06-29 | Valve PSIRT notified — SteamOS ships iwd as the default backend. |
 | 2026-07-21 | Told the maintainers I would publish by 27 July. |
-| 2026-08-01 | Maintainer confirms the patches — reviewed, applied, spec-verified — with one `-Wsign-compare` fix. This post and the PoC repo. Still no fix upstream. |
+| 2026-08-01 | This post and the PoC repo. Still no fix upstream. |
 
 ---
 
