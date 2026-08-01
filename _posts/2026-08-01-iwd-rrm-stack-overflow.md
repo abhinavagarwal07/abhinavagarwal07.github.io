@@ -404,8 +404,9 @@ Three ordinary standards-compliant trailing elements — SSID, DS Parameter Set,
 produce three different estimated rates, so the attacker steers the number with entirely legitimate
 content and only one crafted element to get there.
 
-Every Wi-Fi 6 beacon in range goes through this path during passive scanning, before association,
-with no credentials and no user interaction.
+Every HE Capabilities element seen during scanning reaches this validation path — before
+association, with no credentials and no user interaction. It's the crafted width/length
+inconsistency that turns that into the OOB read; ordinary beacons pass through it harmlessly.
 
 The fix is one character: `(ptr + 7)` → `(ptr + 6)`.
 
