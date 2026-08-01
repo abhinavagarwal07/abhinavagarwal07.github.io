@@ -454,6 +454,18 @@ the station carries on into FTE parsing and key derivation for a mobility domain
 
 Which matters mostly because of what's on that path one call later.
 
+One trap if you're patching this yourself: changing the second `mde1` to `mde2` looks like the
+whole job and breaks FT roaming. The arguments have different shapes. `mde1` is `info->mde`, a raw
+3-byte payload (`uint8_t mde[3]`, `ft.c:54`); `mde2` comes back from `parse_ies()` as
+`ie_tlv_iter_get_data(&iter) - 2`, a full IE with tag and length. They disagree at byte 0, so a
+direct `memcmp` always mismatches and every FT authentication response gets rejected. `mde1[1]`
+isn't a length either — with no IE header it's the MDID high byte. What works is validating
+`mde2[1] == 3` and comparing the payloads:
+
+```c
+return mde2[1] == 3 && memcmp(mde1, mde2 + 2, 3) == 0;
+```
+
 ---
 
 ## Finding 4: the FTE sub-element walker
@@ -573,7 +585,9 @@ Also in the repo:
   code 42.
 - **`01-rrm-stack-overflow/rop_analysis.md`** — per-architecture frame layouts, including the
   x86-64 dead end worked out in full.
-- **Four patches**, one per finding, each verified with `git apply --check` against `d003d0e5`.
+- **[`patches/`](https://github.com/abhinavagarwal07/iwd-security-poc/tree/main/patches)** — the
+  four-patch `git format-patch` series as sent upstream on 21 May, commit messages intact.
+  `git am patches/*.patch` against `d003d0e5`. Independent of each other, so a subset works.
 
 Run it in a disposable VM. Several harnesses are expected to abort partway through — that's the
 result, not a build failure.
@@ -582,7 +596,7 @@ result, not a build failure.
 
 ## What to do
 
-No fixed release exists, so: apply the four patches from the repo, or build with
+No fixed release exists, so: apply the [patch series](https://github.com/abhinavagarwal07/iwd-security-poc/tree/main/patches), or build with
 `-fstack-protector-strong`, which turns finding 1 into an abort on the architectures where control
 flow is otherwise reachable. Check the flags on your image, not your build host. On a Steam Deck,
 `steamos-wifi-set-backend wpa_supplicant`.
