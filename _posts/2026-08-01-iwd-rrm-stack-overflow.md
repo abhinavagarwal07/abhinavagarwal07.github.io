@@ -27,7 +27,9 @@ office has more than sixteen APs in range.
 | 3 | `mde_equal()` compares its first argument to itself | `src/ft.c:385` | Broken check ([CWE-697](https://cwe.mitre.org/data/definitions/697.html)) | 802.11r FT auth response |
 | 4 | FTE sub-element length underflows a `uint8_t` | `src/ie.c:1919` | Integer underflow → OOB read ([CWE-191](https://cwe.mitre.org/data/definitions/191.html)) | 802.11r FT auth response, before any MIC |
 
-> **Affected:** all versions through **3.12**, the latest release.
+> **Affected:** all four coexist in **1.30 through 3.12**, the latest release. They arrived
+> separately — the FTE parser in 0.1, RRM in 1.1, `mde_equal()` in 1.14, and the HE validator in
+> 1.30 — so older versions have a subset.
 > **Fixed in:** nothing. As I write this, upstream `master` is still `d003d0e5` ("Release 3.12",
 > 13 March 2026) and there is no tag after 3.12.
 
@@ -68,10 +70,14 @@ outage rather than code execution.
 The interesting cases are elsewhere.
 
 **SteamOS** is the largest consumer fleet I found with iwd as the OS default rather than an option —
-`steamos-customizations-git` ships `wifi.backend=iwd`. The version isn't 3.12: `holo-main` carries
-3.9-1.1, `holo-3.7` stable carries 3.0-1. All four defects are present in the upstream 3.9 tarball,
-and Valve's PKGBUILD patches are BSS-cache only. The binary is PIE x86-64, so finding 1 there is a
-crash, not code execution. Valve PSIRT notified 29 June. Footprint, not a victim list — I did not
+`steamos-customizations-git` ships `/etc/NetworkManager/conf.d/wifi_backend.conf` containing
+`wifi.backend=iwd`. The version isn't 3.12: the newest `holo-main` package is iwd 3.9-1.2, and the
+older `holo-3.7` repository tops out at 3.0-1. All four defects are present in upstream 3.9, and
+Valve's PKGBUILD patches are BSS-cache only.
+
+Finding 1 on a Deck is a crash, not code execution — I pulled the 3.9-1.2 package and checked: the
+binary is PIE and imports `__stack_chk_fail`, so the stack protector aborts. (PIE alone wouldn't
+stop it; the canary does.) Valve PSIRT notified 29 June. Footprint, not a victim list — I did not
 test a Deck.
 
 **Embedded images** built through Yocto or Buildroot are where the hardening story changes.
@@ -391,10 +397,15 @@ those by choosing what element to put after HE Capabilities.
 So this isn't really "leak two heap bytes". It's: **choose the data rate iwd computes for your AP.**
 That estimate feeds iwd's BSS ranking, which decides what the station prefers.
 
-And it doesn't need a malformed beacon. Three ordinary standards-compliant trailing elements —
-SSID, DS Parameter Set, a vendor element — produce three different estimated rates, with zero
-adversarial content in the frame. Every Wi-Fi 6 beacon in range goes through this path during
-passive scanning, before association, with no credentials and no user interaction.
+To be precise about what has to be malformed: the HE Capabilities element does. A 22-byte body that
+claims 160 MHz and 80+80 support while omitting the MCS maps those widths require is not a legal
+element — that contradiction is the bug. What does *not* have to be malformed is anything after it.
+Three ordinary standards-compliant trailing elements — SSID, DS Parameter Set, a vendor element —
+produce three different estimated rates, so the attacker steers the number with entirely legitimate
+content and only one crafted element to get there.
+
+Every Wi-Fi 6 beacon in range goes through this path during passive scanning, before association,
+with no credentials and no user interaction.
 
 The fix is one character: `(ptr + 7)` → `(ptr + 6)`.
 
@@ -570,11 +581,15 @@ result, not a build failure.
 
 ## What to do
 
-No fixed release exists, so: apply the four patches from the repo, or enable PMF — which doesn't fix
-finding 1 but makes the `address_2` check at rrm.c:733 unspoofable and removes the practical
-trigger — or build with `-fstack-protector-strong`, which turns it into an abort on the
-architectures where control flow is otherwise reachable. Check the flags on your image, not your
-build host. On a Steam Deck, `steamos-wifi-set-backend wpa_supplicant`.
+No fixed release exists, so: apply the four patches from the repo, or build with
+`-fstack-protector-strong`, which turns finding 1 into an abort on the architectures where control
+flow is otherwise reachable. Check the flags on your image, not your build host. On a Steam Deck,
+`steamos-wifi-set-backend wpa_supplicant`.
+
+PMF helps but doesn't close it. It makes the `address_2` check at rrm.c:733 unspoofable, which
+removes the drive-by trigger — but the buffer is still unbounded, and an AP the station is actually
+associated to can send a *protected* Radio Measurement Request that sails through. That covers a
+hostile or compromised AP, and any rogue AP the station has been convinced to join.
 
 The pattern in finding 1 is worth grepping for elsewhere: a loop appending fixed-size records into a
 fixed-size buffer, where the record count comes from somewhere the author assumed was bounded. No
