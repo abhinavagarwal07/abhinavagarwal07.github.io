@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [lcms2, little-cms, icc-profile, integer-overflow, cwe-190, cwe-125, poppler, openjdk]
 description: "lcms2's CubeSize() does a check-after-multiply on a uint32. A crafted ICC profile with ≥5 CLUT channels makes it return a wrapped value, the caller undersizes the CLUT buffer, and the interpolator reads past the end. A 992-byte PDF crashes Poppler; a one-line Java call crashes OpenJDK 21; lcms2's own transicc -l crashes. CVE-2026-41254 published at 7.5 High (NVD); fix landed in lcms2.19rc1 pre-release."
 toc: true
-pin: true
 ---
 
 ## Summary

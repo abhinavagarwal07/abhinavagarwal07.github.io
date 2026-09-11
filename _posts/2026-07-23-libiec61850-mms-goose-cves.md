@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [libiec61850, iec-61850, ics, ot, mms, goose, cve-2026-49035, cve-2026-50039, cve-2026-50032, cve-2026-50103, cwe-122, cwe-121, cwe-476, rce, dos]
 description: "Four unauthenticated flaws in libIEC61850, the IEC 61850 stack behind substation MMS and GOOSE — one chained to RCE in a lab, three reliable crashes. Their fixes remained on a public development branch for 76 days before the coordinated CISA advisory (ICSA-26-204-06). Fixed in v1.6.2."
 toc: true
-pin: true
 ---
 
 ## Summary

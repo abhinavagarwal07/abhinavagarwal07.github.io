@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [eclipse-milo, opc-ua, iec-62541, ics, ot, industrial-iot, padding-oracle, bleichenbacher, denial-of-service, authorization-bypass, cwe-204, cwe-401, cwe-862, cwe-863]
 description: "A CVSS 4.0 9.1 padding oracle in Eclipse Milo — the open-source OPC UA stack embedded across industrial IoT — lets an on-path attacker recover a user's OPC UA password from a single captured token. It is the sharpest of six server-side flaws, alongside an unauthenticated remote crash and an RBAC bypass. Fixed in 1.1.5."
 toc: true
-pin: true
 ---
 
 ## Summary

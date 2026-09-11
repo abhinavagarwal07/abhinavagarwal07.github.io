@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [openssl, sm2, timing-side-channel, arm64, riscv, constant-time, ecc, cwe-208]
 description: "OpenSSL's optimized SM2 scalar multiplication has data-dependent branches on the private key. Direct measurement of the EC_POINT_mul call used by SM2 decrypt shows r = -0.9828 between runtime and zero-nibble count, with a slope of -389 ns per zero nibble. This leaks a stable aggregate private-key fingerprint (~3 bits) and the same non-constant-time branch pattern may expose richer traces to cache-based attacks. ARM64 and RISC-V only. SM2 is required for systems subject to Chinese commercial cryptography regulations."
 toc: true
-pin: true
 ---
 
 ## Summary

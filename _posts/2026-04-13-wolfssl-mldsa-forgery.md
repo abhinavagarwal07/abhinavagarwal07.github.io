@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [wolfssl, ml-dsa, dilithium, fips-204, pqc, signature-forgery, cwe-226]
 description: "wolfSSL's ML-DSA signing implementation does not destroy private key material after use, violating FIPS 204 Section 3.6.3. The unzeroed heap block is recoverable via same-process allocation, enabling end-to-end signature forgery."
 toc: true
-pin: true
 ---
 
 ## Summary

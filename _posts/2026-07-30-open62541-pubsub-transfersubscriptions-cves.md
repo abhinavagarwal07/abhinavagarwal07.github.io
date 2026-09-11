@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [open62541, opc-ua, iec-62541, ics, ot, pubsub, cve-2026-63362, cve-2026-63035, cwe-191, cwe-416, dos]
 description: "Two memory-safety bugs I reported in open62541: an integer underflow in PubSub signature verification and a use-after-free in TransferSubscriptions. Fixed in v1.3.19, v1.4.18 and v1.5.6."
 toc: true
-pin: true
 ---
 
 ## Summary
