@@ -6,7 +6,6 @@ categories: [Security, Advisory]
 tags: [nextgen-connect, mirth-connect, healthcare, sqli, xxe, denial-of-service, cwe-89, cwe-611, cve-2026-82583, cve-2026-78224, cve-2026-82578]
 description: "Three network-reachable flaws in NextGen Mirth Connect: authenticated SQL injection that exports the configuration database and freezes bundled Derby until restart, plus two unauthenticated XXE paths. Tested on 4.5.2; CISA recommends 4.7.2 or later."
 toc: true
-pin: true
 ---
 
 ## Summary

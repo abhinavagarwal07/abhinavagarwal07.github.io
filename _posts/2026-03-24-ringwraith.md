@@ -6,7 +6,6 @@ categories: [Security, CVE]
 tags: [cve-2026-33150, cve-2026-33179, io_uring, libfuse, linux, fuse, use-after-free]
 description: "Two memory safety CVEs in libfuse's io_uring transport — root cause, exploitation surface, and PoC. CVE-2026-33150 and CVE-2026-33179."
 toc: true
-pin: false
 ---
 
 

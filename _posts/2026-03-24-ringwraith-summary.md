@@ -6,7 +6,6 @@ categories: [Security]
 tags: [cve-2026-33150, cve-2026-33179]
 description: "Press summary for RingWraith — CVE-2026-33150 and CVE-2026-33179 in libfuse io_uring."
 toc: false
-pin: false
 ---
 
 

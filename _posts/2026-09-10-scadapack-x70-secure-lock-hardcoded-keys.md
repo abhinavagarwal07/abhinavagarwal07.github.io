@@ -7,7 +7,6 @@ tags: [schneider-electric, scadapack, remoteconnect, ics, ot, dnp3, rtu, secure-
 description: "Schneider Electric's SCADAPack x70 'Secure Lock' feature protects device lock, unlock and password-change messages with an AES-128 key-wrap KEK and an HMAC-SHA256 key derived from compiled-in constants, with no per-device or per-session input. I extracted both from the tested Windows DTM and the tested RTU firmware image, where they are byte-identical. CVE-2026-81861."
 toc: true
 mermaid: true
-pin: true
 ---
 
 ## Summary
