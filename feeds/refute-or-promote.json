@@ -1,13 +1,21 @@
 {
   "schema_version": "1.0.0",
   "source_title": "Abhinav Agarwal / Refute-or-Promote: CVE evidence source",
-  "source_revision": 3,
-  "generated_at": "2026-10-07T18:44:09.912Z",
+  "source_revision": 4,
+  "generated_at": "2026-10-07T19:00:44.523Z",
   "verified_date": "2026-10-07",
   "source_urls": {
-    "json": "https://abhinavagarwal07.github.io/feeds/refute-or-promote.json",
+    "evidence_json": "https://abhinavagarwal07.github.io/feeds/refute-or-promote.json",
     "rss": "https://abhinavagarwal07.github.io/feeds/refute-or-promote.rss",
+    "cve_record_json_array": "https://abhinavagarwal07.github.io/feeds/refute-or-promote-cve-records.json",
     "index": "https://abhinavagarwal07.github.io/feeds/"
+  },
+  "feed_formats": {
+    "rss": "RSS 2.0; one item per verified published CVE; official publication dates and unchanged CVE Record JSON enclosures.",
+    "cve_records": "Array of 36 unmodified official CVE Record JSON 5.2 objects, also available individually through RSS enclosures.",
+    "evidence_json": "Separate 37-candidate attribution/workflow evidence; CVE-2026-92817 remains publication-unverified.",
+    "rss_specification_url": "https://www.rssboard.org/rss-specification",
+    "cve_record_schema_url": "https://github.com/CVEProject/cve-schema/releases/tag/v5.2.0"
   },
   "requested_ledger_identity": "Abhinav Agarwal / Refute-or-Promote",
   "submission_status": "Prepared for review; not submitted",
@@ -31,7 +39,8 @@
     "maintained_inventory_revision": 1,
     "inventory_id": "urn:uuid:330e5c92-cbbe-4a81-bd5c-dad2c267e94f",
     "inventory_access_date": "2026-10-07",
-    "verification": "Maintained public-source evidence, with Berkeley requirements, paper, RSAC methodology account, linked DCMTK/libIEC61850 advisories, and selected attribution records rechecked on 7 October 2026."
+    "official_record_fetch_at": "2026-10-07T18:54:09.862537+00:00",
+    "verification": "All 36 published official CVE Record JSON documents fetched unchanged on 7 October 2026. Berkeley requirements, paper, RSAC methodology account, linked DCMTK/libIEC61850 advisories, and selected attribution records also rechecked."
   },
   "counts": {
     "unique_candidates": 37,
@@ -82,7 +91,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/33xxx/CVE-2026-33150.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-03-20T20:20:29.963Z",
+        "date_updated": "2026-07-15T01:07:15.081Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-33150.json",
+        "official_record_sha256": "5a0c8cc1317bd8894ee45bdfd3c1becbd8321dbd90d312c9452970a427e742d2"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -120,7 +134,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/33xxx/CVE-2026-33179.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-03-20T20:20:09.171Z",
+        "date_updated": "2026-03-25T13:55:45.971Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-33179.json",
+        "official_record_sha256": "1ae1797b68b185640bb9c4306c8d903164595e665f5acdc747cf753e6ab0e8e9"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -158,7 +177,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/34xxx/CVE-2026-34183.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-09T16:03:23.623Z",
+        "date_updated": "2026-06-10T15:51:12.557Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-34183.json",
+        "official_record_sha256": "aea137c3a2242353d9d5620125190f57eef47a1921264054ce9daa631454483c"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -198,7 +222,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-41254",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-04-18T06:43:13.741Z",
+        "date_updated": "2026-05-07T17:33:56.924Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-41254.json",
+        "official_record_sha256": "dc5c2f188432b9a181234d2c1f9d7fe94f1cfb9fe1fa64d7eea93e7229e664d7"
       },
       "human_attribution": {
         "category": "CNA-cited public report",
@@ -247,7 +276,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-50003",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T21:27:42.468Z",
+        "date_updated": "2026-07-01T15:39:24.236Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-50003.json",
+        "official_record_sha256": "0bcd4473ea7c31337d7bd5ce0239d834f80cf2235a301d7ab30756748213bc3c"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -288,7 +322,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-50254",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T21:14:01.154Z",
+        "date_updated": "2026-07-01T15:40:16.809Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-50254.json",
+        "official_record_sha256": "0bba94508c39357e30636e5aa54a8fe49c35d606c03c3b9bebc5c41759e9aec3"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -329,7 +368,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-35505",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T21:09:46.797Z",
+        "date_updated": "2026-07-01T15:40:53.801Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-35505.json",
+        "official_record_sha256": "4b4a73cc29b9245a4f1bba9770e85ee7005bed8c217c7a8d2ece96aace241613"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -370,7 +414,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-52868",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T21:06:36.568Z",
+        "date_updated": "2026-07-01T15:41:24.906Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-52868.json",
+        "official_record_sha256": "f1a443f94918e65fba1bb98d7f5ee4d30621066bad5f35b0410ab88748cddd4a"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -411,7 +460,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-44628",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T20:54:35.796Z",
+        "date_updated": "2026-07-01T15:41:57.859Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-44628.json",
+        "official_record_sha256": "b83e76c3eeab46c24352702fc8825b9a50c7fad3e454c95058399fcf8ba50428"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -452,7 +506,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-49035",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-23T20:48:18.888Z",
+        "date_updated": "2026-07-24T13:42:05.960Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-49035.json",
+        "official_record_sha256": "9879d0470386f3fa3baf0f599ecd4604d50184939c18463c768f83e30546795c"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -491,7 +550,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-50039",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-23T20:32:30.439Z",
+        "date_updated": "2026-07-24T13:54:22.569Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-50039.json",
+        "official_record_sha256": "d4bb7c8dcaf755a10d8343d05aed231319d5a0dad6a1b00d27548033ec5b4824"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -530,7 +594,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-50032",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-23T20:53:36.613Z",
+        "date_updated": "2026-07-24T13:41:13.842Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-50032.json",
+        "official_record_sha256": "404cf1a2a324132536d5e9ce40c5d4388f239621eb4f772029b58962f1ce02f4"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -569,7 +638,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-50103",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-23T20:50:42.198Z",
+        "date_updated": "2026-07-24T13:41:40.192Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-50103.json",
+        "official_record_sha256": "8654520fa63d1a815425b1e1117a5639d7027e1814e8708aaae4f47ba43a1774"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -608,7 +682,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-63362",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-30T22:01:48.523Z",
+        "date_updated": "2026-07-31T15:48:40.485Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-63362.json",
+        "official_record_sha256": "e0878f90efff3d215a82cb86cbd2a3e7f94791264b535465af5746c45cb69bb0"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -649,7 +728,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-63035",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-30T21:56:04.345Z",
+        "date_updated": "2026-07-31T15:45:48.062Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-63035.json",
+        "official_record_sha256": "91a4c3f2ca01d04f5aae2badb96e2e713d96ce5c0232817d00ebfa56b1d50ce5"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -690,7 +774,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/65xxx/CVE-2026-65423.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-30T21:59:06.093Z",
+        "date_updated": "2026-08-24T17:52:15.835Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-65423.json",
+        "official_record_sha256": "328b9ae2391b40c88955577e8cbc6df60a6f9f1871f43b4354a1379929c321a7"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -737,7 +826,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/63xxx/CVE-2026-63559.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-07-30T21:47:21.231Z",
+        "date_updated": "2026-08-25T14:22:58.350Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-63559.json",
+        "official_record_sha256": "6786a116e066beb99e75473a9495c70b645380bae03266ef81eae3ff62994f8b"
       },
       "human_attribution": {
         "category": "Verified advisory-level credit",
@@ -784,7 +878,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-60007",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T11:55:41.934Z",
+        "date_updated": "2026-08-04T15:02:43.092Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-60007.json",
+        "official_record_sha256": "0a918712bc75f92035baa9884a2f97ac0b83b5f4b326596e5fbeafb200101d6b"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -820,7 +919,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-61387",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T11:52:38.259Z",
+        "date_updated": "2026-08-04T15:02:51.029Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-61387.json",
+        "official_record_sha256": "8715907cb35a0ceadac2662c6e00e755173e20a2c8475ec0699960aaf3df52e2"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -857,7 +961,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-63248",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T12:07:43.820Z",
+        "date_updated": "2026-08-04T15:02:13.054Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-63248.json",
+        "official_record_sha256": "7edb1469f248aadd72fa1aac38b2bc058888eadc85214f82e09f223f106e8817"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -893,7 +1002,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-58080",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T12:05:10.547Z",
+        "date_updated": "2026-08-04T15:02:18.894Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-58080.json",
+        "official_record_sha256": "b7da59e28ccc61317e20346cec9d2281aa91c397fd0eaca8fc7f58202a87c73f"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -929,7 +1043,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-63252",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T12:03:18.647Z",
+        "date_updated": "2026-08-04T15:02:26.923Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-63252.json",
+        "official_record_sha256": "ba6d788ecb13ce2c49503a4468d1054fd95f62958c23fb77a85039cba97b18b3"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -968,7 +1087,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-62927",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-04T11:57:59.822Z",
+        "date_updated": "2026-08-04T15:02:34.431Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-62927.json",
+        "official_record_sha256": "f0f5efdab7e4cc6f6089222872b67355b80462f7b37cd9897dd216ec241c291e"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1004,7 +1128,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-82583",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-11T14:17:24.471Z",
+        "date_updated": "2026-09-11T14:57:02.545Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-82583.json",
+        "official_record_sha256": "33e0607ac8658c4ac0a7a635bc34893b511ea0ed37a37dc2451cab696e80d0e7"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1042,7 +1171,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/78xxx/CVE-2026-78224.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-11T14:20:06.708Z",
+        "date_updated": "2026-09-11T14:57:02.383Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-78224.json",
+        "official_record_sha256": "375fa979ac82d0a2b8886787aa5d29252abb9efdfbccbf51bb833a0c70bffa8c"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1087,7 +1221,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/82xxx/CVE-2026-82578.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-11T14:22:29.454Z",
+        "date_updated": "2026-09-11T14:57:02.218Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-82578.json",
+        "official_record_sha256": "5abf75ce17cf23f2e2a58d02938dddff756cd9b5f333d1696543b1d21a6e8edb"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1124,7 +1263,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/47xxx/CVE-2026-47187.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-19T14:41:57.512Z",
+        "date_updated": "2026-08-20T18:29:10.307Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-47187.json",
+        "official_record_sha256": "6c01fc788c5ee619d80f4858323383f3fad755bafbb2845b1ecf1976c88db9ce"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1160,7 +1304,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/48xxx/CVE-2026-48711.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-08-19T14:42:50.094Z",
+        "date_updated": "2026-08-20T18:28:58.771Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-48711.json",
+        "official_record_sha256": "fce3cae37e679950bd6cf9c8190c464441e16cddd860a0e6ee9320670ab1b69b"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1196,7 +1345,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/54xxx/CVE-2026-54875.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-29T15:32:17.206Z",
+        "date_updated": "2026-09-29T17:17:20.483Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-54875.json",
+        "official_record_sha256": "a8805155a008bc7aa95219d4cfd497f67eb10e8d81ffbd4fe72f9800ddfffae6"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1237,7 +1391,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/58xxx/CVE-2026-58374.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-06-30T12:35:54.440Z",
+        "date_updated": "2026-06-30T13:38:26.434Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-58374.json",
+        "official_record_sha256": "b267bf00749a21263ae6337c37330b43659f0d8c01dbaaa500579a1335e8b830"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1280,7 +1439,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://cveawg.mitre.org/api/cve/CVE-2026-42798",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-04-30T06:34:13.323Z",
+        "date_updated": "2026-04-30T12:57:14.221Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-42798.json",
+        "official_record_sha256": "3ae646488d113706c8e116edd829707c39e954f11e62553864b7d2caa8c59853"
       },
       "human_attribution": {
         "category": "CNA-cited public report",
@@ -1321,7 +1485,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/81xxx/CVE-2026-81861.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-11T15:07:48.927Z",
+        "date_updated": "2026-09-11T19:14:04.959Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-81861.json",
+        "official_record_sha256": "c8dd525468dbb07fb265e72e7429ab7db8c9fc51670020de758287fb313da6c1"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1358,7 +1527,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/102xxx/CVE-2026-102508.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-30T07:42:43.537Z",
+        "date_updated": "2026-09-30T14:39:33.687Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-102508.json",
+        "official_record_sha256": "fdf6429fc04658ff9136616b206315e791921a22cd9eddf9f1acb3a1e94b3142"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1391,7 +1565,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/102xxx/CVE-2026-102509.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-30T08:00:27.709Z",
+        "date_updated": "2026-09-30T14:40:06.881Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-102509.json",
+        "official_record_sha256": "5374d4690c3f581c2378da1fcb19e9e2b71171feee8c593dc5a4a06c216eec03"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1424,7 +1603,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/15xxx/CVE-2026-15952.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-28T13:10:28.374Z",
+        "date_updated": "2026-09-28T17:59:28.712Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-15952.json",
+        "official_record_sha256": "507378d409f109c09a6aa5ab90397615b75abfc2f1294d0d87ed4a183bf8a1a2"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1461,7 +1645,12 @@
       "cna_publication": {
         "state": "PUBLISHED",
         "record_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/15xxx/CVE-2026-15953.json",
-        "verified_date": "2026-10-07"
+        "verified_date": "2026-10-07",
+        "date_published": "2026-09-28T13:17:46.752Z",
+        "date_updated": "2026-09-28T16:32:28.788Z",
+        "data_version": "5.2",
+        "official_record_json_url": "https://abhinavagarwal07.github.io/feeds/cve-records/CVE-2026-15953.json",
+        "official_record_sha256": "dec55350f22849b3684cb9270529bdae347bb515c468dbe90a1d28f164e18687"
       },
       "human_attribution": {
         "category": "Verified direct credit",
@@ -1525,7 +1714,7 @@
         "evidence_note": "CVE-specific workflow source to be supplied."
       },
       "qualifications": [
-        "The vendor bulletin explicitly names this CVE and jointly acknowledges Tim Hemingway and Abhinav Agarwal across two vulnerabilities. Public CNA retrieval returned HTTP 404 on 7 October 2026; publication verification is outstanding."
+        "The vendor bulletin explicitly names this CVE and jointly acknowledges Tim Hemingway and Abhinav Agarwal across two vulnerabilities. Public CNA retrieval returned HTTP 404 on 7 October 2026, rechecked at 18:55:28 UTC; publication verification is outstanding."
       ],
       "requested_review": "Retain Agarwal’s joint vendor advisory-level credit; confirm CNA publication and workflow evidence for ledger eligibility.",
       "berkeley_eligibility_status": "Review pending",
