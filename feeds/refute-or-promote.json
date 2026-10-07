@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1.0",
   "source_title": "Abhinav Agarwal / Refute-or-Promote: CVE attribution and methodology source",
-  "source_revision": 5,
-  "generated_at": "2026-10-07T20:02:43.116Z",
+  "source_revision": 6,
+  "generated_at": "2026-10-07T20:11:26.116Z",
   "verified_date": "2026-10-07",
   "source_urls": {
     "evidence_json": "https://abhinavagarwal07.github.io/feeds/refute-or-promote.json",
@@ -104,10 +104,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -148,10 +144,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -194,10 +186,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -248,10 +236,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -294,10 +278,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -341,10 +321,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -388,10 +364,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -435,10 +407,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -482,10 +450,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -527,10 +491,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -572,10 +532,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -617,10 +573,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -662,10 +614,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -713,10 +661,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -759,10 +703,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -810,10 +750,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -861,10 +797,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -902,10 +834,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -944,10 +872,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -985,10 +909,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1026,10 +946,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1069,10 +985,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1110,10 +1022,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1151,10 +1059,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1201,10 +1105,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1244,10 +1144,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1288,10 +1184,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1329,10 +1221,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1374,10 +1262,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1421,10 +1305,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1466,10 +1346,6 @@
       ],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1507,10 +1383,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1545,10 +1417,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1583,10 +1451,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1624,10 +1488,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1665,10 +1525,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
@@ -1705,10 +1561,6 @@
       "public_reports": [],
       "ai_workflow_attribution": {
         "system": "Refute-or-Promote",
-        "ai_systems_used": [
-          "Claude",
-          "Codex"
-        ],
         "basis": "Researcher statement",
         "statement_by": "Abhinav Agarwal",
         "statement_date": "2026-10-07",
