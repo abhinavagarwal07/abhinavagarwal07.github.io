@@ -3,7 +3,7 @@ layout: post
 title: "Four Authorization and Availability Findings in HAPI FHIR"
 date: 2026-10-22 00:00:00 +0000
 categories: [Security, Advisory]
-tags: [hapi-fhir, fhir, hl7, healthcare, smile-cdr, authorization, denial-of-service, cwe-862, cwe-863, cwe-409]
+tags: [hapi-fhir, fhir, hl7, healthcare, smile-cdr, authorization, denial-of-service, cwe-862, cwe-863, cwe-409, cve-2026-113873, cve-2026-113874, cve-2026-113875, cve-2026-113876]
 description: "A transaction-bundle extension that overrides a trusted tenant partition, a conditional create that returns a resource the caller cannot read, subscription delivery detached from the creator's read scope, and unbounded inbound gzip decompression before authorization. Tested on HAPI FHIR 8.10.0."
 toc: true
 ---
@@ -14,18 +14,18 @@ toc: true
 
 I reported four findings against **HAPI FHIR 8.10.0**, commit [`96ac50f89455`](https://github.com/hapifhir/hapi-fhir/commit/96ac50f89455eb4cbef57fa858854e58b6dac4a5), coordinated through CERT/CC as **VU#394579**.
 
-| Finding | Demonstrated | CWE | CVSS 3.1 |
-|---|---|---|---|
-| Tenant partition override | A transaction-entry extension replaces a trusted gateway's partition header; foreign-partition reads, and a resource created in a foreign partition | 863 | 8.1 High |
-| Inbound gzip decompression | Body inflated without a size cap, before HAPI's authorization hook | 409 | 7.5 High |
-| Conditional-create disclosure | A predicate matching one resource returns its full representation to a caller denied a direct read | 863 | 4.3 Medium |
-| Subscription delivery scope | A matching clinical resource reaches the subscriber's endpoint despite a denied direct read | 862 | 3.1 Low |
+| Finding | CVE | Demonstrated | CWE | CVSS 3.1 |
+|---|---|---|---|---|
+| Tenant partition override | [CVE-2026-113874](https://www.cve.org/CVERecord?id=CVE-2026-113874) | A transaction-entry extension replaces a trusted gateway's partition header; foreign-partition reads, and a resource created in a foreign partition | 863 | 8.1 High |
+| Inbound gzip decompression | [CVE-2026-113873](https://www.cve.org/CVERecord?id=CVE-2026-113873) | Body inflated without a size cap, before HAPI's authorization hook | 409 | 7.5 High |
+| Conditional-create disclosure | [CVE-2026-113876](https://www.cve.org/CVERecord?id=CVE-2026-113876) | A predicate matching one resource returns its full representation to a caller denied a direct read | 863 | 4.3 Medium |
+| Subscription delivery scope | [CVE-2026-113875](https://www.cve.org/CVERecord?id=CVE-2026-113875) | A matching clinical resource reaches the subscriber's endpoint despite a denied direct read | 862 | 3.1 Low |
 
-Scores are the assigned CVSS v3.1 values from the CISA draft of 2026-10-06. CVE identifiers are assigned through the CISA advisory and will be listed here once it is published.
+The four CVE records were published on October 22, 2026. Scores above are CISA's published CVSS 3.1 assessments. The linked [VA-26-294-01](https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/IT/white/2026/va-26-294-01.json) is CISA's machine-readable CSAF record; a traditional CISA advisory has not yet been published.
 
 Archived Surefire reports record 23 passing tests across seven classes on OpenJDK 17.0.19. I did not demonstrate code execution or authentication bypass. Line numbers refer to `96ac50f89455` unless stated.
 
-> **Version scope:** tested on 8.10.0; source inspection found all four paths in v8.8.2, v8.10.1 and v8.12.1. The partition extension first shipped in v8.2.0 (`85abdc23007`). One fix exists in unreleased code only — see [Fix status](#fix-status).
+> **Version scope:** tested on 8.10.0; source inspection found all four paths in v8.8.2, v8.10.1 and v8.12.1. The partition extension first shipped in v8.2.0 (`85abdc23007`). CISA lists no fix for three findings and a September 2026 conditional-create fix without an exact release or build — see [Fix status](#fix-status).
 {: .prompt-danger }
 
 | Finding | Module | Prerequisites |
@@ -37,7 +37,7 @@ Archived Surefire reports record 23 passing tests across seven classes on OpenJD
 
 ## 1. Transaction bundle entry overrides a trusted tenant partition
 
-**8.1 High** · `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N` · CWE-863
+**[CVE-2026-113874](https://www.cve.org/CVERecord?id=CVE-2026-113874) · 8.1 High** · `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N` · CWE-863
 
 In the tested topology, a trusted gateway authenticates the caller, strips any caller-supplied partition header, and writes the caller's tenant into `X-Request-Partition-IDs`. `RequestHeaderPartitionInterceptor` selects the partition from it.
 
@@ -55,7 +55,7 @@ Writes were demonstrated as creation only; altering or deleting an existing fore
 
 ## 2. Unbounded inbound gzip decompression before authorization
 
-**7.5 High** · `AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H` · CWE-409
+**[CVE-2026-113873](https://www.cve.org/CVERecord?id=CVE-2026-113873) · 7.5 High** · `AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H` · CWE-409
 
 [`RestfulServer.java:170`](https://github.com/hapifhir/hapi-fhir/blob/96ac50f89455eb4cbef57fa858854e58b6dac4a5/hapi-fhir-server/src/main/java/ca/uhn/fhir/rest/server/RestfulServer.java#L170) defaults `myUncompressIncomingContents` to `true`. With `Content-Encoding: gzip`, [`ServletRequestDetails.getByteStreamRequestContents()`](https://github.com/hapifhir/hapi-fhir/blob/96ac50f89455eb4cbef57fa858854e58b6dac4a5/hapi-fhir-server/src/main/java/ca/uhn/fhir/rest/server/servlet/ServletRequestDetails.java#L98-L120) (98-120) reads the body into memory, then drains a `GZIPInputStream` through `IOUtils.toByteArray()` into a second `byte[]`. There is no size or ratio cap.
 
@@ -70,7 +70,7 @@ This shows unbounded heap allocation in the pre-authorization path. The harness 
 
 ## 3. Conditional create returns a resource the caller cannot read
 
-**4.3 Medium** · `AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N` · CWE-863
+**[CVE-2026-113876](https://www.cve.org/CVERecord?id=CVE-2026-113876) · 4.3 Medium** · `AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N` · CWE-863
 
 [`MatchResourceUrlService.processMatchUrl()`](https://github.com/hapifhir/hapi-fhir/blob/96ac50f89455eb4cbef57fa858854e58b6dac4a5/hapi-fhir-storage/src/main/java/ca/uhn/fhir/jpa/dao/MatchResourceUrlService.java#L104) (104) resolves the conditional URL and, via `invokePreShowInterceptorForMatchUrlResults()` (197), broadcasts `STORAGE_PRESHOW_RESOURCES` on the match (202-219).
 
@@ -82,11 +82,11 @@ HAPI's 5.6.0 changelog ([`3047-inline-match-security.yaml`](https://github.com/h
 
 **Evidence:** `AuthorizationInterceptorConditionalCreateReadBypassR4Test` (4/4). The caller holds Patient CREATE only; a direct `GET` of the target returns 403. A `POST /Patient` with an `If-None-Exist` predicate matching exactly one resource returns HTTP 200 with that Patient's full stored representation. The caller supplies the predicate; enumerating or discovering arbitrary records was not demonstrated.
 
-**Upstream:** fixed in unreleased commit `063b073e8c1` (2026-08-19, PR [#8254](https://github.com/hapifhir/hapi-fhir/pull/8254)), after issue [#8253](https://github.com/hapifhir/hapi-fhir/issues/8253) (2026-08-13). The REST binding now suppresses the body whenever CREATE returns `created == FALSE`, and PATCH moves from `IN` to `BOTH`. CREATE still takes the `IN` early return; the fix suppresses the representation rather than adding a read check. Upstream's test confirms the matched resource's id still returns in `Location`. By inspection only, version metadata may remain in headers depending on configuration, and 200 versus 201 distinguishes match from no match.
+**Upstream:** commit `063b073e8c1` (2026-08-19, PR [#8254](https://github.com/hapifhir/hapi-fhir/pull/8254)) addresses response-body disclosure, after issue [#8253](https://github.com/hapifhir/hapi-fhir/issues/8253) (2026-08-13). Release availability and CISA's September fix claim are discussed under [Fix status](#fix-status). The REST binding now suppresses the body whenever CREATE returns `created == FALSE`, and PATCH moves from `IN` to `BOTH`. CREATE still takes the `IN` early return; the fix suppresses the representation rather than adding a read check. Upstream's test confirms the matched resource's id still returns in `Location`. By inspection only, version metadata may remain in headers depending on configuration, and 200 versus 201 distinguishes match from no match.
 
 ## 4. Subscription delivery is not scoped to the creator's read access
 
-**3.1 Low** · `AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N` · CWE-862
+**[CVE-2026-113875](https://www.cve.org/CVERecord?id=CVE-2026-113875) · 3.1 Low** · `AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N` · CWE-862
 
 At creation, [`SubscriptionValidatingInterceptor.validateSubmittedSubscription()`](https://github.com/hapifhir/hapi-fhir/blob/96ac50f89455eb4cbef57fa858854e58b6dac4a5/hapi-fhir-jpaserver-subscription/src/main/java/ca/uhn/fhir/jpa/subscription/submit/interceptor/SubscriptionValidatingInterceptor.java#L118-L194) (118-194) checks status, channel and matching strategy, and `validateCriteria()` (196) checks the criteria. [`validatePermissions()`](https://github.com/hapifhir/hapi-fhir/blob/96ac50f89455eb4cbef57fa858854e58b6dac4a5/hapi-fhir-jpaserver-subscription/src/main/java/ca/uhn/fhir/jpa/subscription/submit/interceptor/SubscriptionValidatingInterceptor.java#L242-L271) (242-271) enforces only the cross-partition rules. None applies the creator's read policy, so criteria such as `Observation?` are accepted.
 
@@ -132,22 +132,24 @@ These count different things and do not sum. GitHub figures include forks; pulls
 
 ## Fix status
 
-As of 2026-10-22 — master `f2fce24162a`, `rel_9_0`, tags v8.8.2, v8.10.1, v8.12.1:
+Upstream source inspection on 2026-10-22 covered master `f2fce24162a`, `rel_9_0`, and tags v8.8.2, v8.10.1 and v8.12.1:
 
 | Finding | Status |
 |---|---|
 | Partition override | Present; handler unchanged, no shipped entitlement policy |
 | Gzip decompression | Present; `ServletRequestDetails.java` byte-identical at every ref |
-| Conditional create | Fixed in `063b073e8c1`, on master and `rel_9_0` only |
+| Conditional create | Response-body suppression in `063b073e8c1`, on master and `rel_9_0` only among the inspected refs |
 | Subscription delivery | Present; no commits to either class |
 
-The next release, 9.0.0, is scheduled for 2026-11-19. It is a breaking Spring Boot 4 / Jackson 3 / Hibernate 7 upgrade, with no 8.x backport. Commit `b5b0ae75978` (PR [#8404](https://github.com/hapifhir/hapi-fhir/pull/8404), issue [#8387](https://github.com/hapifhir/hapi-fhir/issues/8387)) extends `STORAGE_PARTITION_SELECTED` to requests without a resource type. It is unreleased, adds no entitlement policy, and leaves the extension handler unchanged.
+CISA's machine-readable CSAF record lists no fix for CVE-2026-113873, CVE-2026-113874 and CVE-2026-113875. For CVE-2026-113876 it reports a fix around September 2026, without identifying a release, build or patch mapping. The inspected upstream release tags did not contain the response-body change; the relationship between that source snapshot and CISA's date-based fix statement remains unresolved. Operators should obtain an exact fixed-build statement from their supplier.
+
+The upstream release plan schedules 9.0.0 for 2026-11-19. It is a breaking Spring Boot 4 / Jackson 3 / Hibernate 7 upgrade, with no 8.x backport. Commit `b5b0ae75978` (PR [#8404](https://github.com/hapifhir/hapi-fhir/pull/8404), issue [#8387](https://github.com/hapifhir/hapi-fhir/issues/8387)) extends `STORAGE_PARTITION_SELECTED` to requests without a resource type. It is unreleased, adds no entitlement policy, and leaves the extension handler unchanged.
 
 The 2026 advisories for the sibling `org.hl7.fhir.core` library cover separate code and do not correspond to these findings.
 
 ## Mitigation
 
-No released version fixes these. The entitlement control was exercised in tests; the rest are from source inspection.
+The following controls can reduce exposure while operators confirm fix availability for their deployment. The entitlement control was exercised in tests; the rest are from source inspection.
 
 - **Partition override:** register a `STORAGE_PARTITION_SELECTED` interceptor that checks the caller's entitlement to the final partition. Strip the `request-partition-ids` entry extension at the gateway.
 - **Gzip:** `setUncompressIncomingContents(false)` where clients do not compress; otherwise enforce a decompressed-size limit ahead of HAPI.
@@ -157,12 +159,17 @@ No released version fixes these. The entitlement control was exercised in tests;
 
 ## Disclosure
 
-Coordinated through CERT/CC as **VU#394579**. The findings were confirmed on 2026-07-11/12 against `96ac50f89455`, each with a passing proof of concept. The conditional-create path was raised upstream as issue [#8253](https://github.com/hapifhir/hapi-fhir/issues/8253) on 2026-08-13 and fixed on 2026-08-19. Proof-of-concept sources will be published once released versions fix the remaining findings.
+Coordinated through CERT/CC as **VU#394579**. The findings were confirmed on 2026-07-11/12 against `96ac50f89455`, each with a passing proof of concept. The conditional-create path was independently raised upstream as issue [#8253](https://github.com/hapifhir/hapi-fhir/issues/8253) on 2026-08-13; the response-body change merged on 2026-08-19. Proof-of-concept sources will be published once released versions fix the remaining findings.
+
+- **2026-07-12, 11:24 UTC:** Coordination case VU#394579 opened.
+- **2026-10-22:** Public disclosure and publication of CVE-2026-113873, CVE-2026-113874, CVE-2026-113875 and CVE-2026-113876.
 
 Findings were produced largely autonomously using the [Refute-or-Promote methodology](https://arxiv.org/pdf/2604.19049). I chose the target, reviewed each finding, wrote the proofs of concept and handled disclosure.
 
 ## References
 
+- [CISA machine-readable CSAF record VA-26-294-01](https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/IT/white/2026/va-26-294-01.json)
+- CVE records: [CVE-2026-113873](https://www.cve.org/CVERecord?id=CVE-2026-113873) · [CVE-2026-113874](https://www.cve.org/CVERecord?id=CVE-2026-113874) · [CVE-2026-113875](https://www.cve.org/CVERecord?id=CVE-2026-113875) · [CVE-2026-113876](https://www.cve.org/CVERecord?id=CVE-2026-113876)
 - [HAPI FHIR](https://github.com/hapifhir/hapi-fhir) · [commit `96ac50f89455`](https://github.com/hapifhir/hapi-fhir/commit/96ac50f89455eb4cbef57fa858854e58b6dac4a5) · [FHIR R4 Subscription](https://hl7.org/fhir/R4/subscription.html)
 - Upstream: [#8253](https://github.com/hapifhir/hapi-fhir/issues/8253) · [#8254](https://github.com/hapifhir/hapi-fhir/pull/8254) · [#8387](https://github.com/hapifhir/hapi-fhir/issues/8387) · [#8404](https://github.com/hapifhir/hapi-fhir/pull/8404)
 - [Smile CDR changelog](https://smilecdr.com/docs/welcome/changelog.html) · [GitHub dependents](https://github.com/hapifhir/hapi-fhir/network/dependents) · [deps.dev](https://deps.dev/maven/ca.uhn.hapi.fhir%3Ahapi-fhir-base) · [Docker Hub](https://hub.docker.com/r/hapiproject/hapi)
